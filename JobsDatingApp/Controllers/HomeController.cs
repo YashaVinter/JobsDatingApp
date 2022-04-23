@@ -10,10 +10,12 @@ namespace JobsDatingApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private TestViewModel testViewModel;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, TestViewModel testViewModel)
         {
             _logger = logger;
+            this.testViewModel = testViewModel;
         }
 
         public IActionResult Index()
@@ -25,13 +27,26 @@ namespace JobsDatingApp.Controllers
         {
             return View();
         }
-        public IActionResult Find() 
+        public IActionResult Find()
         {
             return View();
         }
-        public IActionResult Test() 
+        public IActionResult Test()
         {
-            return View(new TestViewModel(new MockDataBase().Vacancies.First()));
+            return View(testViewModel);
+        }
+        //public IActionResult Test2()
+        //{
+        //    return View(new TestViewModel(new MockDataBase().Vacancies.First()));
+        //}
+        //public IActionResult Test1(TestViewModel testViewModel)
+        //{
+        //    return View(testViewModel);
+        //}
+        public IActionResult Like() 
+        {
+            testViewModel.NextVacancy();
+            return View(testViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

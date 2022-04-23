@@ -1,15 +1,29 @@
 ﻿using System.Web;
 using JobsDatingApp.Models;
+using JobsDatingApp.Models.Storage;
 
 namespace JobsDatingApp.ViewModels
 {
     public class TestViewModel
     {
-        public Vacancy Vacancy { get; set; }
-        public TestViewModel(Vacancy vacancy)
+        private MockDataBase dataBase;
+        private List<Vacancy>.Enumerator vacancyEnumerator;
+
+        public Vacancy Vacancy { get { return vacancyEnumerator.Current; } }
+
+		public TestViewModel(MockDataBase dataBase)
         {
-            this.Vacancy = vacancy;
-           
+            this.dataBase = dataBase;
+            vacancyEnumerator = dataBase.Vacancies.GetEnumerator();
+			if (!vacancyEnumerator.MoveNext()){
+                throw new();
+			}
+        }
+        public void NextVacancy() 
+        {
+			if (!vacancyEnumerator.MoveNext()){
+                throw new();
+            }
         }
     }
 }

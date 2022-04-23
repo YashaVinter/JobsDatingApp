@@ -3,8 +3,8 @@
     public class MockDataBase
     {
         List<Company> companies;
-        public List<Company> Companies { get { return companies; } }
         List<Vacancy> vacancies;
+        public List<Company> Companies { get { return companies; } }
         public List<Vacancy> Vacancies { get { return vacancies; } }
         public MockDataBase()
         {
@@ -24,7 +24,7 @@
                     Name="VTB",
                     ShortDesc="VTB company",
                     FullDesc="Private company VTB",
-                    PhotoPath=null,
+                    PhotoPath="/Files/CompanyPhoto/Vtb.jpg",
                 }
             };
             vacancies = new List<Vacancy>()

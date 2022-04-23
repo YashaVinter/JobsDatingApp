@@ -1,0 +1,16 @@
+﻿@using JobsDatingApp.ViewModels
+@model TestViewModel
+@{
+    ViewData["Title"] = "Like Page";
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.Vacancy.Company.Name</h1> 
+    <img src=@Model.Vacancy.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
+    <p>@Model.Vacancy.Name</p>
+    <p>@Model.Vacancy.Salary</p>
+    <p>@Model.Vacancy.ShortDesc</p>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> 
+	    <a class="btn btn-danger" asp-area="" asp-controller="Home" asp-action="Dislike">Dislike</a>
+        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Like">Like</a>
+    </div>
+</div>

@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
+using JobsDatingApp.Models.Storage;
+using JobsDatingApp.ViewModels;
+
 public static class Program
 {
     public static void Main(string[] args) 
@@ -9,6 +12,8 @@ public static class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddSingleton<MockDataBase>();
+        builder.Services.AddScoped<TestViewModel>();
 
         var app = builder.Build();
 
