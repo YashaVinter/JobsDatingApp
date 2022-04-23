@@ -10,12 +10,10 @@ namespace JobsDatingApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private Company company;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            company = new CompanyMemoryStorage().Get(1);
         }
 
         public IActionResult Index()
@@ -33,7 +31,7 @@ namespace JobsDatingApp.Controllers
         }
         public IActionResult Test() 
         {
-            return View(new TestViewModel(company));
+            return View(new TestViewModel(new MockDataBase().Vacancies.First()));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

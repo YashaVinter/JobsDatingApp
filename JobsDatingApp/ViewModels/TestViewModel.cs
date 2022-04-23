@@ -5,11 +5,11 @@ namespace JobsDatingApp.ViewModels
 {
     public class TestViewModel
     {
-        public Company Company { get; set; }
-        public TestViewModel(Company company)
+        public Vacancy Vacancy { get; set; }
+        public TestViewModel(Vacancy vacancy)
         {
-            this.Company = company;
-            
+            this.Vacancy = vacancy;
+           
         }
     }
 }

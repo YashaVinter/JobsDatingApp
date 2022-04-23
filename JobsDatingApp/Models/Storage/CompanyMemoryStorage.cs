@@ -7,11 +7,7 @@ namespace JobsDatingApp.Models.Storage
 {
     public class CompanyMemoryStorage : IStorage<Company>
     {
-        ISet<Company> companies = new HashSet<Company>
-        {
-            new(){ Id=1,Name="Sber",ShortDesc="Sber company",FullDesc="State company Sber", PhotoPath="/Files/CompanyPhoto/Sber.jpg"},
-            new(){ Id=2,Name="VTB",ShortDesc="VTB company",FullDesc="Private company VTB"}
-        };
+        ISet<Company> companies;
         public Company? Get(int Id)
         {
             return companies.FirstOrDefault(c => c.Id == Id);
