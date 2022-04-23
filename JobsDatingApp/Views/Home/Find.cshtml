@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Find Page";
+}
+@{
+	var photoPath = @"C:\Users\User\source\repos\JobsDatingApp\JobsDatingApp\wwwroot\Files\CompanyPhoto\Sber.png";
+}
+<div class="text-center">
+    <h1 class="display-4">Company</h1>
+    <img src=@photoPath alt="photo" />
+    <p>Должность</p>
+    <p>Зарплата</p>
+    <p>Зарплата</p>
+    <p>краткое описание</p>
+	<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+		<ul class="navbar-nav flex-grow-1">
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Like">Like</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dislike">Dislike</a>
+			</li>
+		</ul>
+	</div>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
