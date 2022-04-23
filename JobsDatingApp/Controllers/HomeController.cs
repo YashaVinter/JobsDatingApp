@@ -17,7 +17,6 @@ namespace JobsDatingApp.Controllers
             _logger = logger;
             this.testViewModel = testViewModel;
         }
-
         public IActionResult Index()
         {
             return View();
