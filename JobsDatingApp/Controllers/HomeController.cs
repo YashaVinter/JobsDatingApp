@@ -3,6 +3,9 @@ using JobsDatingApp.Models.Storage;
 using JobsDatingApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using System.Diagnostics;
 
 namespace JobsDatingApp.Controllers
@@ -17,9 +20,20 @@ namespace JobsDatingApp.Controllers
             _logger = logger;
             this.testViewModel = testViewModel;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var v2 = new Guid(Guid.NewGuid().ToString());
+            v2 = Guid.NewGuid();
+
+            var v = this.HttpContext.User.Identity;
+            var claimsIdentity = new ClaimsIdentity(new List<Claim> { new(ClaimTypes.Name, "user1") },
+                CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            await this.HttpContext.SignInAsync(claimsPrincipal);
+            //var v = this.HttpContext.User.Claims;
+            //var v = this.HttpContext.Request.Cookies.Append(new("", ""));
+            //var v1 = this.HttpContext.Session.Id;
+            return View() ;
         }
 
         public IActionResult Privacy()
@@ -44,6 +58,7 @@ namespace JobsDatingApp.Controllers
         //}
         public IActionResult Like() 
         {
+            var v1 = this.HttpContext.Session.Id;
             testViewModel.NextVacancy();
             return View(testViewModel);
         }

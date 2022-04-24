@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 namespace Persistence
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : DbContext //TODO rename
     {
-        //public DbSet<User> Users => Set<User>();
+        public DbSet<User> Users => Set<User>();
         //public DbSet<Person> Persons { get; set; } = null!;
         //public DbSet<Address> Addresses { get; set; } = null!;
         public string dbPath = @"C:\Users\User\source\repos\EntityFrameworkApp\EntityFrameworkApp\TelegramBotDB.db";
@@ -17,6 +17,11 @@ namespace Persistence
             //modelBuilder.Entity<Person>().HasIndex(a => a.name).IsUnique();
         }
     }
+    public class User 
+    {
+		public int Id { get; set; }
+		public bool autorized{ get; set; }
+	}
     public class Test 
     {
         public void Test1() 

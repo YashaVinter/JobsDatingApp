@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using JobsDatingApp.Models.Storage;
 using JobsDatingApp.ViewModels;
 
@@ -14,6 +17,10 @@ public static class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddSingleton<MockDataBase>();
         builder.Services.AddScoped<TestViewModel>();
+        builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options => options.LoginPath="/login");
+        builder.Services.AddAuthorization();
 
         var app = builder.Build();
 
@@ -30,6 +37,7 @@ public static class Program
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(

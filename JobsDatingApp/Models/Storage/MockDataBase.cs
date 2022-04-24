@@ -42,8 +42,26 @@
                 {
                     Id = 2,
                     Name = "Middle",
-                    CompanyId = 2,
+                    CompanyId = 1,
                     Salary = 100000,
+                    ShortDesc ="Middle position",
+                    FullDesc ="Middle position in Sber"
+                },
+                                new Vacancy()
+                {
+                    Id = 3,
+                    Name = "Junior",
+                    CompanyId = 2,
+                    Salary = 45000,
+                    ShortDesc ="Junior position",
+                    FullDesc ="Junior position in Vtb"
+                },
+                new Vacancy()
+                {
+                    Id = 4,
+                    Name = "Middle",
+                    CompanyId = 2,
+                    Salary = 110000,
                     ShortDesc ="Middle position",
                     FullDesc ="Middle position in Vtb"
                 }
