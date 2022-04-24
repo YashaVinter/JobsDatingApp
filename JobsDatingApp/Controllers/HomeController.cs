@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.Diagnostics;
+using JobsDatingApp.Filters;
 
 namespace JobsDatingApp.Controllers
 {
+    [AuthorizationFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -25,11 +27,15 @@ namespace JobsDatingApp.Controllers
             var v2 = new Guid(Guid.NewGuid().ToString());
             v2 = Guid.NewGuid();
 
-            var v = this.HttpContext.User.Identity;
+            var v3 = new Claim[] { new("","") };
+
+            var user = this.HttpContext.User.Identity;
+            var v1 = this.HttpContext.Request.Cookies;
+            //await this.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsIdentity = new ClaimsIdentity(new List<Claim> { new(ClaimTypes.Name, "user1") },
                 CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await this.HttpContext.SignInAsync(claimsPrincipal);
+            await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
             //var v = this.HttpContext.User.Claims;
             //var v = this.HttpContext.Request.Cookies.Append(new("", ""));
             //var v1 = this.HttpContext.Session.Id;
