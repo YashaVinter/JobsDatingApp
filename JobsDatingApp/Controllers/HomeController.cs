@@ -24,21 +24,21 @@ namespace JobsDatingApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var v2 = new Guid(Guid.NewGuid().ToString());
-            v2 = Guid.NewGuid();
+            //var v2 = new Guid(Guid.NewGuid().ToString());
+            //v2 = Guid.NewGuid();
 
-            var v3 = new Claim[] { new("","") };
+            //var v3 = new Claim[] { new("","") };
 
-            var user = this.HttpContext.User.Identity;
-            var v1 = this.HttpContext.Request.Cookies;
-            //await this.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimsIdentity = new ClaimsIdentity(new List<Claim> { new(ClaimTypes.Name, "user1") },
-                CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-            //var v = this.HttpContext.User.Claims;
-            //var v = this.HttpContext.Request.Cookies.Append(new("", ""));
-            //var v1 = this.HttpContext.Session.Id;
+            //var user = this.HttpContext.User.Identity;
+            //var v1 = this.HttpContext.Request.Cookies;
+            ////await this.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //var claimsIdentity = new ClaimsIdentity(new List<Claim> { new(ClaimTypes.Name, "user1") },
+            //    CookieAuthenticationDefaults.AuthenticationScheme);
+            //var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            //await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+            ////var v = this.HttpContext.User.Claims;
+            ////var v = this.HttpContext.Request.Cookies.Append(new("", ""));
+            ////var v1 = this.HttpContext.Session.Id;
             return View() ;
         }
 
