@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobsDatingApp\JobsDatingApp.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using JobsDatingApp.Models;
+
 namespace Persistence
 {
-    public class ApplicationContext : DbContext //TODO rename
+    /// <summary>
+    ///  TODO rename
+    /// </summary>
+    public class ApplicationContext : DbContext
     {
         public DbSet<User> Users => Set<User>();
         //public DbSet<Person> Persons { get; set; } = null!;
@@ -17,11 +22,6 @@ namespace Persistence
             //modelBuilder.Entity<Person>().HasIndex(a => a.name).IsUnique();
         }
     }
-    public class User 
-    {
-		public int Id { get; set; }
-		public bool autorized{ get; set; }
-	}
     public class Test 
     {
         public void Test1() 

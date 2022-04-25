@@ -21,6 +21,7 @@ namespace JobsDatingApp.ViewModels
         }
         public void NextVacancy() 
         {
+            var v = Vacancy;
 			if (!vacancyEnumerator.MoveNext()){
                 throw new();
             }

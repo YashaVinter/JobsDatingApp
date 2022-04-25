@@ -64,7 +64,7 @@ namespace JobsDatingApp.Controllers
         //}
         public IActionResult Like() 
         {
-            var v1 = this.HttpContext.Session.Id;
+            //var v1 = this.HttpContext.Session.Id;
             testViewModel.NextVacancy();
             return View(testViewModel);
         }

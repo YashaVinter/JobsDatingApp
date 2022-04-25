@@ -1,11 +1,12 @@
-﻿namespace JobsDatingApp.Models.Storage
+﻿using JobsDatingApp.Models;
+
+namespace Persistence
 {
-    public class MockDataBase : IDataBase
+    public class MockDataBase //: IDataBase<List>>
     {
         List<Company> companies;
         List<Vacancy> vacancies;
-        List<User> users;
-        //public List<Company> Companies { get { return companies; } }
+        public List<Company> Companies { get { return companies; } }
         public List<Vacancy> Vacancies { get { return vacancies; } }
         public MockDataBase()
         {
