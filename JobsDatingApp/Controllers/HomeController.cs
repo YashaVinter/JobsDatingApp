@@ -1,5 +1,4 @@
 ﻿using JobsDatingApp.Models;
-using JobsDatingApp.Models.Storage;
 using JobsDatingApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,12 +14,12 @@ namespace JobsDatingApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private TestViewModel testViewModel;
+        private VacancyViewModel vacancyViewModel;
 
-        public HomeController(ILogger<HomeController> logger, TestViewModel testViewModel)
+        public HomeController(ILogger<HomeController> logger, VacancyViewModel testViewModel)
         {
             _logger = logger;
-            this.testViewModel = testViewModel;
+            this.vacancyViewModel = testViewModel;
         }
         public async Task<IActionResult> Index()
         {
@@ -39,7 +38,7 @@ namespace JobsDatingApp.Controllers
             ////var v = this.HttpContext.User.Claims;
             ////var v = this.HttpContext.Request.Cookies.Append(new("", ""));
             ////var v1 = this.HttpContext.Session.Id;
-            return View() ;
+            return View();
         }
 
         public IActionResult Privacy()
@@ -50,9 +49,13 @@ namespace JobsDatingApp.Controllers
         {
             return View();
         }
-        public IActionResult Test()
+        public IActionResult Vacancy()
         {
-            return View(testViewModel);
+            return View(vacancyViewModel);
+        }
+        public IActionResult Test1() 
+        {
+            return View(vacancyViewModel);
         }
         //public IActionResult Test2()
         //{
@@ -65,8 +68,8 @@ namespace JobsDatingApp.Controllers
         public IActionResult Like() 
         {
             //var v1 = this.HttpContext.Session.Id;
-            testViewModel.NextVacancy();
-            return View(testViewModel);
+            vacancyViewModel.NextVacancy();
+            return View(vacancyViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

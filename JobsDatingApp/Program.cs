@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using JobsDatingApp.Models.Storage;
 using JobsDatingApp.ViewModels;
+using JobsDatingApp.Models;
 
 public static class Program
 {
@@ -16,7 +16,7 @@ public static class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddSingleton<MockDataBase>();
-        builder.Services.AddScoped<TestViewModel>();
+        builder.Services.AddScoped<VacancyViewModel>();
         builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => options.LoginPath="/login");

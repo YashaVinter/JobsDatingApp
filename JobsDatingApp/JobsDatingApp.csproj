@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\Files\CompanyPhoto\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+  </ItemGroup>
+
 </Project>

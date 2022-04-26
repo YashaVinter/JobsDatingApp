@@ -8,11 +8,15 @@ using JobsDatingApp.Models;
 
 namespace Persistence
 {
-    internal interface IDataBase<T> where T : Ige
+    /// <summary>
+    /// TODO IDataBase<T>
+    /// T<Company> Companies
+    /// </summary>
+    internal interface IDataBase
     {
-        T<Company> Companies { get; set; }
-        T<Vacancy> Vacancies { get; set; }
-        T<User> Users { get; set; }
+        IEnumerable<Company> Companies { get; set; }
+        IEnumerable<Vacancy> Vacancies { get; set; }
+        IEnumerable<User> Users { get; set; }
 
     }
 }

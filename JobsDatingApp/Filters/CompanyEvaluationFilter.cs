@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using JobsDatingApp.Models;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JobsDatingApp.Filters
 {
     public class CompanyEvaluationFilter : IAsyncActionFilter
     {
-        public CompanyEvaluationFilter()
+        public CompanyEvaluationFilter(MockDataBase dataBase)
         {
 
         }

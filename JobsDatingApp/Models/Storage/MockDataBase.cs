@@ -1,15 +1,15 @@
-﻿namespace JobsDatingApp.Models.Storage
+﻿using JobsDatingApp.Models;
+
+namespace JobsDatingApp.Models
 {
-    public class MockDataBase : IDataBase
+    public class MockDataBase //: IDataBase<List>>
     {
-        List<Company> companies;
-        List<Vacancy> vacancies;
-        List<User> users;
-        //public List<Company> Companies { get { return companies; } }
-        public List<Vacancy> Vacancies { get { return vacancies; } }
+        public List<Company> Companies { get; }
+        public List<Vacancy> Vacancies { get; }
+        public List<User> Users { get; }
         public MockDataBase()
         {
-            companies = new List<Company>() 
+            Companies = new List<Company>() 
             {
                 new Company()
                 {
@@ -28,7 +28,7 @@
                     PhotoPath="/Files/CompanyPhoto/Vtb.jpg",
                 }
             };
-            vacancies = new List<Vacancy>()
+            Vacancies = new List<Vacancy>()
             { 
                 new Vacancy()
                 {
@@ -67,7 +67,8 @@
                     FullDesc ="Middle position in Vtb"
                 }
             };
-            BindTables(companies, vacancies);
+            Users = new List<User>();
+            BindTables(Companies, Vacancies);
         }
         private void BindTables(List<Company> companies, List<Vacancy> vacancies)
         {

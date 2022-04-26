@@ -1,4 +1,4 @@
-﻿namespace JobsDatingApp.Models.Storage
+﻿namespace JobsDatingApp.Models
 {
     public interface IStorage<T>
     {
