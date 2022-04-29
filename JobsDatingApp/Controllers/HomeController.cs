@@ -53,6 +53,44 @@ namespace JobsDatingApp.Controllers
         {
             return View(vacancyViewModel);
         }
+        public IActionResult Vacancy1([FromServices] MockDataBase dataBase)
+        {
+            var user = this.HttpContext.User;
+            var model = new VacancyViewModel(dataBase, user);
+            var userLastViewedVacancyId = user.FindFirst(CookiesLiterals.LastViewedVacancyId);
+            if (user.Identity is ClaimsIdentity claimsIdentity)
+            {
+                
+                //var v = dataBase.Vacancies.FirstOrDefault(v => v.Id == Conv userLastViewedVacancyId.Value)
+                //var c = new Claim(CookiesLiterals.LastViewedVacancyId,)
+                //claimsIdentity.
+            }
+            //userLastViewedVacancyId = model.Vacancy1.Id;
+            return View(new VacancyViewModel(dataBase,this.HttpContext.User));
+        }
+        private void WriteUserViewedVacany(MockDataBase dataBase, System.Security.Claims.ClaimsPrincipal user) 
+        {
+            try{
+                Claim userLastViewedVacancy = user.FindFirst(CookiesLiterals.LastViewedVacancyId)!;
+                var userLastViewedVacancyId = Convert.ToInt32(userLastViewedVacancy.Value);
+            }
+            catch (Exception){
+                _logger.Log(LogLevel.Error, "Problem with user Cookie: \"Claim LastViewedVacancyId\"");
+            }
+
+        }
+        private bool HasUserLastViewedVacancy(MockDataBase dataBase, System.Security.Claims.ClaimsPrincipal user) 
+        {
+            Claim userLastViewedVacancy = user.FindFirst(CookiesLiterals.LastViewedVacancyId)!;
+            if (userLastViewedVacancy is null){
+                return true;
+            }
+            int userLastViewedVacancyId;
+            if (!int.TryParse(userLastViewedVacancy.Value, out userLastViewedVacancyId)){
+                return false;
+            }
+            return true;
+        }
         public IActionResult Test1() 
         {
             return View(vacancyViewModel);
@@ -71,6 +109,19 @@ namespace JobsDatingApp.Controllers
             vacancyViewModel.NextVacancy();
             return View(vacancyViewModel);
         }
+        public IActionResult DisLike([FromServices] MockDataBase dataBase)
+        {
+            var vacancyViewModel = new VacancyViewModel(dataBase, this.HttpContext.User);
+            if (vacancyViewModel.NextVacancy1()) { 
+                //dataBase.Users.fi
+            }
+            return View(vacancyViewModel);
+        }
+        public IActionResult VacancyInfo()
+        {
+            return View(vacancyViewModel);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -15,13 +15,26 @@ namespace JobsDatingApp.ViewModels
                 return vacancyEnumerator.Current; 
             } 
         }
-		public VacancyViewModel(MockDataBase dataBase)
+        public Vacancy Vacancy1 { get; private set; }
+
+        public VacancyViewModel(MockDataBase dataBase)
         {
             this.dataBase = dataBase;
             vacancyEnumerator = dataBase.Vacancies.GetEnumerator();
 			if (!vacancyEnumerator.MoveNext()){
                 throw new();
 			}
+        }
+        public VacancyViewModel(MockDataBase dataBase, System.Security.Claims.ClaimsPrincipal user)
+        {
+            this.dataBase = dataBase;
+            var userId = user.Identity!.Name;
+            var userVcancy = (from u in dataBase.Users
+                              where u.Id.ToString() == userId
+                              select u.LastViewedVacancy)
+                             .FirstOrDefault();
+
+            this.Vacancy1 = userVcancy ?? dataBase.Vacancies.First();
         }
         public Vacancy LastShownVacancy(System.Security.Claims.ClaimsPrincipal user) 
         {
@@ -38,6 +51,15 @@ namespace JobsDatingApp.ViewModels
 			if (!vacancyEnumerator.MoveNext()){
                 throw new();
             }
+        }
+        public bool NextVacancy1()
+        {
+            var nextVacancy = dataBase.Vacancies.FirstOrDefault(v => v.Id == Vacancy1.Id+1);
+            if (nextVacancy is null){
+                return false;
+            }
+            Vacancy1 = nextVacancy!;
+            return true;
         }
     }
 }

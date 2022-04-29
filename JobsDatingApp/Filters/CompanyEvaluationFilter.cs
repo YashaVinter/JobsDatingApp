@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JobsDatingApp.Filters
 {
-    public class CompanyEvaluationFilter : IAsyncActionFilter
+    public class CompanyEvaluationFilter : Attribute,IAsyncActionFilter
     {
         public CompanyEvaluationFilter(MockDataBase dataBase)
         {

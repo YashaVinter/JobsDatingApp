@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
+using JobsDatingApp.Models;
+
 namespace JobsDatingApp.Filters
 {
     public class AuthorizationFilter : Attribute, IAsyncAuthorizationFilter
@@ -14,7 +16,11 @@ namespace JobsDatingApp.Filters
             if (!context.HttpContext.User.Identity!.IsAuthenticated)
             {
                 var newUser = new Guid(Guid.NewGuid().ToString());
-                var claims = new Claim[] { new(ClaimTypes.Name, newUser.ToString()) };
+                var claims = new Claim[] 
+                {
+                    new(ClaimTypes.Name, newUser.ToString()),
+                    new(CookiesLiterals.LastViewedVacancyId, "")
+                };
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await context.HttpContext.SignInAsync(claimsPrincipal);
