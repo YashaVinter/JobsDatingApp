@@ -1,0 +1,22 @@
+@using JobsDatingApp.ViewModels
+@model VacancyViewModel
+@{
+    ViewData["Title"] = "Vacancy Page";
+}
+@{
+    var photoPath = "/Files/CompanyPhoto/Sber.jpg";
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.Vacancy1.Company.Name</h1> 
+    <img src=@Model.Vacancy1.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
+    <p>@Model.Vacancy1.Name</p>
+    <p>@Model.Vacancy1.Salary</p>
+    <p>@Model.Vacancy1.ShortDesc</p>
+    <div>
+        <a class="btn btn-info" asp-area="" asp-controller="Home" asp-action="VacancyInfo">Vacancy Information</a>
+    </div>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> 
+        <a class="btn btn-danger btn-lg" asp-area="" asp-controller="Home" asp-action="Dislike">Dislike</a>
+	    <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Home" asp-action="Like">Like</a>
+    </div>
+</div>

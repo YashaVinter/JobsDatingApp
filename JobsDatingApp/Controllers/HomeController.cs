@@ -53,20 +53,27 @@ namespace JobsDatingApp.Controllers
         {
             return View(vacancyViewModel);
         }
-        public IActionResult Vacancy1([FromServices] MockDataBase dataBase)
+        public async Task<IActionResult> Vacancy1([FromServices] MockDataBase dataBase)
         {
             var user = this.HttpContext.User;
-            var model = new VacancyViewModel(dataBase, user);
-            var userLastViewedVacancyId = user.FindFirst(CookiesLiterals.LastViewedVacancyId);
-            if (user.Identity is ClaimsIdentity claimsIdentity)
-            {
+            ////var model = new VacancyViewModel(dataBase, user);
+            //var userLastViewedVacancyId = user.FindFirst(CookiesLiterals.LastViewedVacancyId);
+            //if (user.Identity is ClaimsIdentity claimsIdentity)
+            //{
                 
-                //var v = dataBase.Vacancies.FirstOrDefault(v => v.Id == Conv userLastViewedVacancyId.Value)
-                //var c = new Claim(CookiesLiterals.LastViewedVacancyId,)
-                //claimsIdentity.
-            }
-            //userLastViewedVacancyId = model.Vacancy1.Id;
-            return View(new VacancyViewModel(dataBase,this.HttpContext.User));
+            //    //var v = dataBase.Vacancies.FirstOrDefault(v => v.Id == Conv userLastViewedVacancyId.Value)
+            //    //var c = new Claim(CookiesLiterals.LastViewedVacancyId,)
+            //    //claimsIdentity.
+            //}
+            ////userLastViewedVacancyId = model.Vacancy1.Id;
+            ////
+            IsUserLastViewedVacancyValid(user);
+                var model = new VacancyViewModel(dataBase, this.HttpContext.User);
+            await WriteUserCookie(this.HttpContext, model.Vacancy1.Id.ToString());
+            //return View(model);
+            return View(model);
+            //return RedirectToAction("Error.cshtml");
+
         }
         private void WriteUserViewedVacany(MockDataBase dataBase, System.Security.Claims.ClaimsPrincipal user) 
         {
@@ -75,7 +82,7 @@ namespace JobsDatingApp.Controllers
                 var userLastViewedVacancyId = Convert.ToInt32(userLastViewedVacancy.Value);
             }
             catch (Exception){
-                _logger.Log(LogLevel.Error, "Problem with user Cookie: \"Claim LastViewedVacancyId\"");
+                _logger.Log(LogLevel.Warning, "Problem with user Cookie: \"Claim LastViewedVacancyId\"");
             }
 
         }
@@ -83,13 +90,50 @@ namespace JobsDatingApp.Controllers
         {
             Claim userLastViewedVacancy = user.FindFirst(CookiesLiterals.LastViewedVacancyId)!;
             if (userLastViewedVacancy is null){
-                return true;
+                _logger.Log(LogLevel.Warning, @"User's cookie is null");
+                return false;
             }
             int userLastViewedVacancyId;
             if (!int.TryParse(userLastViewedVacancy.Value, out userLastViewedVacancyId)){
+                _logger.Log(LogLevel.Warning, @"User's cookie is not valid");
+                return false;
+            }
+            if (!dataBase.Vacancies.Any(v => v.Id == userLastViewedVacancyId)){
+                _logger.Log(LogLevel.Warning, @"User's cookie not found in db");
                 return false;
             }
             return true;
+        }
+        private bool IsUserLastViewedVacancyValid(System.Security.Claims.ClaimsPrincipal user) 
+        {
+            Claim userLastViewedVacancy = user.FindFirst(CookiesLiterals.LastViewedVacancyId)!;
+            if (userLastViewedVacancy is null)
+            {
+                _logger.Log(LogLevel.Warning, @"User's cookie is null");
+                return false;
+            }
+            int userLastViewedVacancyId;
+            if (!int.TryParse(userLastViewedVacancy.Value, out userLastViewedVacancyId))
+            {
+                _logger.Log(LogLevel.Warning, @"User's cookie is not valid");
+                return false;
+            }
+            return true;
+        }
+        private async Task WriteUserCookie(HttpContext context,string vacancyId)
+        {
+            if (context.User.Identity is ClaimsIdentity claimsIdentity)
+            {
+                //
+                if (claimsIdentity.FindFirst(CookiesLiterals.LastViewedVacancyId) is Claim claim) {
+                    claimsIdentity.RemoveClaim(claim);
+                }
+                //
+                // add check to exist claim
+                claimsIdentity.AddClaim(new Claim(CookiesLiterals.LastViewedVacancyId, vacancyId));
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                await context.SignInAsync(claimsPrincipal);
+            }
         }
         public IActionResult Test1() 
         {
@@ -108,6 +152,14 @@ namespace JobsDatingApp.Controllers
             //var v1 = this.HttpContext.Session.Id;
             vacancyViewModel.NextVacancy();
             return View(vacancyViewModel);
+        }
+        public async Task<IActionResult> Like1([FromServices] MockDataBase dataBase)
+        {
+            IsUserLastViewedVacancyValid(this.HttpContext.User);
+            var model = new VacancyViewModel(dataBase, this.HttpContext.User);
+            model.NextVacancy1();
+            await WriteUserCookie(this.HttpContext, model.Vacancy1.Id.ToString());
+            return View(model);
         }
         public IActionResult DisLike([FromServices] MockDataBase dataBase)
         {

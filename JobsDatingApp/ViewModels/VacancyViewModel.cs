@@ -28,10 +28,15 @@ namespace JobsDatingApp.ViewModels
         public VacancyViewModel(MockDataBase dataBase, System.Security.Claims.ClaimsPrincipal user)
         {
             this.dataBase = dataBase;
-            var userId = user.Identity!.Name;
-            var userVcancy = (from u in dataBase.Users
-                              where u.Id.ToString() == userId
-                              select u.LastViewedVacancy)
+            //var userId = user.Identity!.Name;
+            int vacancyId = int.Parse(user.FindFirst(CookiesLiterals.LastViewedVacancyId)!.Value);
+            //var userVcancy = (from u in dataBase.Users
+            //                  where u.Id.ToString() == userId
+            //                  select u.LastViewedVacancy)
+            //                 .FirstOrDefault();
+            var userVcancy = (from v in dataBase.Vacancies
+                              where v.Id == vacancyId
+                              select v)
                              .FirstOrDefault();
 
             this.Vacancy1 = userVcancy ?? dataBase.Vacancies.First();
