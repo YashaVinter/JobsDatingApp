@@ -1,12 +1,14 @@
 ﻿using JobsDatingApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobsDatingApp.Models
 {
-    public class MockDataBase //: IDataBase<List>>
+    public class MockDataBase // : IDataBase
     {
         public List<Company> Companies { get; }
         public List<Vacancy> Vacancies { get; }
         public List<User> Users { get; }
+        public DbSet<Car> Cars { get; }
         public MockDataBase()
         {
             Companies = new List<Company>() 
@@ -82,4 +84,5 @@ namespace JobsDatingApp.Models
             }
         }
     }
+    public record Car(int Id, string Name);
 }

@@ -29,7 +29,7 @@ namespace JobsDatingApp.Models
             using (ApplicationContext db = new ApplicationContext())
             {
                 var u1 = db.Users.First();
-                var u2 = db.Users.ElementAt(1);
+                var u2 = db.Users.ElementAt(1);                
             }
             //using (ApplicationContext db = new ApplicationContext())
             //{

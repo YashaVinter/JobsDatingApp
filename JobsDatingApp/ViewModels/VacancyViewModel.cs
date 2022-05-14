@@ -41,6 +41,15 @@ namespace JobsDatingApp.ViewModels
 
             this.Vacancy1 = userVcancy ?? dataBase.Vacancies.First();
         }
+        public VacancyViewModel(MockDataBase dataBase, int? vacancyId)
+        {
+            this.dataBase = dataBase;
+            var userVacancy = (from v in dataBase.Vacancies
+                              where v.Id == vacancyId
+                              select v)
+                             .FirstOrDefault();
+            this.Vacancy1 = userVacancy ?? dataBase.Vacancies.First();
+        }
         public Vacancy LastShownVacancy(System.Security.Claims.ClaimsPrincipal user) 
         {
             var userId = user.Identity!.Name;
@@ -49,6 +58,10 @@ namespace JobsDatingApp.ViewModels
                               select u.LastViewedVacancy)
                              .FirstOrDefault();
             return userVcancy ?? dataBase.Vacancies.First();
+        }
+        public void PreviousVacancy() 
+        {
+            throw new NotImplementedException();
         }
         public void NextVacancy() 
         {

@@ -19,7 +19,8 @@ namespace JobsDatingApp.Controllers
         public HomeController(ILogger<HomeController> logger, VacancyViewModel testViewModel)
         {
             _logger = logger;
-            this.vacancyViewModel = testViewModel;
+            this.vacancyViewModel = null!;
+
         }
         public async Task<IActionResult> Index()
         {
@@ -56,7 +57,14 @@ namespace JobsDatingApp.Controllers
         public async Task<IActionResult> Vacancy1([FromServices] MockDataBase dataBase)
         {
             var user = this.HttpContext.User;
-            ////var model = new VacancyViewModel(dataBase, user);
+            // ---new---
+            var vacancyId = ParseUserVacancyId(user);
+            var model = new VacancyViewModel(dataBase, vacancyId);
+            await WriteUserCookie(this.HttpContext, model.Vacancy1.Id.ToString());
+            return View(model);
+        }
+        /*
+                     ////var model = new VacancyViewModel(dataBase, user);
             //var userLastViewedVacancyId = user.FindFirst(CookiesLiterals.LastViewedVacancyId);
             //if (user.Identity is ClaimsIdentity claimsIdentity)
             //{
@@ -73,8 +81,7 @@ namespace JobsDatingApp.Controllers
             //return View(model);
             return View(model);
             //return RedirectToAction("Error.cshtml");
-
-        }
+         */
         private void WriteUserViewedVacany(MockDataBase dataBase, System.Security.Claims.ClaimsPrincipal user) 
         {
             try{
@@ -120,6 +127,15 @@ namespace JobsDatingApp.Controllers
             }
             return true;
         }
+        private int? ParseUserVacancyId(System.Security.Claims.ClaimsPrincipal user) 
+        {
+            int vacancyId;
+            if (int.TryParse(user.FindFirst(CookiesLiterals.LastViewedVacancyId)?.Value, out vacancyId)){
+                return vacancyId;
+            }
+            _logger.Log(LogLevel.Warning, @"User's cookie is not valid");
+            return null;
+        }
         private async Task WriteUserCookie(HttpContext context,string vacancyId)
         {
             if (context.User.Identity is ClaimsIdentity claimsIdentity)
@@ -147,6 +163,11 @@ namespace JobsDatingApp.Controllers
         //{
         //    return View(testViewModel);
         //}
+        public IActionResult Back()
+        {
+            vacancyViewModel.PreviousVacancy();
+            return View(vacancyViewModel);
+        }
         public IActionResult Like() 
         {
             //var v1 = this.HttpContext.Session.Id;
@@ -169,6 +190,7 @@ namespace JobsDatingApp.Controllers
             }
             return View(vacancyViewModel);
         }
+
         public IActionResult VacancyInfo()
         {
             return View(vacancyViewModel);
