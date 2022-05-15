@@ -1,11 +1,12 @@
 ﻿using JobsDatingApp.Models;
 
-namespace JobsDatingApp.Data.mocks
+namespace JobsDatingApp.Data
 {
     public static class DBObjects
     {
         public static List<Company> Companies { get; set; }
         public static List<Vacancy> Vacancies { get; set; }
+        public static List<User> Users{ get; set; }
         static DBObjects()
         {
             Companies = new List<Company>()
@@ -73,6 +74,17 @@ namespace JobsDatingApp.Data.mocks
                 }
             };
             BindCompaniesAndVacanies();
+            Users = new List<User> 
+            {
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "test@mail.com",
+                    Password = "123456",
+                    Name = "Bob",
+                    Login = "Bob123"
+                }
+            };
         }
         private static void BindCompaniesAndVacanies()
         {

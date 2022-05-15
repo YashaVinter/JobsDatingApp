@@ -19,8 +19,7 @@ namespace JobsDatingApp.Controllers
         public HomeController(ILogger<HomeController> logger, VacancyViewModel testViewModel)
         {
             _logger = logger;
-            this.vacancyViewModel = null!;
-
+            this.vacancyViewModel = null;
         }
         public async Task<IActionResult> Index()
         {
