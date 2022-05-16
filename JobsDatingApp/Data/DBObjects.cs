@@ -7,13 +7,29 @@ namespace JobsDatingApp.Data
         public static List<Company> Companies { get; set; }
         public static List<Vacancy> Vacancies { get; set; }
         public static List<User> Users{ get; set; }
+        public static async void Initial(AppDBContext context)
+        {
+            if (!context.Companies.Any()){
+                context.Companies.AddRange(Companies);
+                context.SaveChanges();
+            }
+            if (!context.Vacancies.Any()){
+                context.Vacancies.AddRange(Vacancies);
+                context.SaveChanges();
+            }
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(Users);
+                context.SaveChanges();
+            }
+        }
         static DBObjects()
         {
             Companies = new List<Company>()
             {
                 new Company()
                 {
-                    Id=1,
+                    //Id=1,
                     Name="Sber",
                     ShortDesc="Sber company",
                     FullDesc="State company Sber",
@@ -22,7 +38,7 @@ namespace JobsDatingApp.Data
                 },
                 new Company()
                 {
-                    Id=2,
+                    //Id=2,
                     Name="VTB",
                     ShortDesc="VTB company",
                     FullDesc="Private company VTB",
@@ -34,9 +50,9 @@ namespace JobsDatingApp.Data
             {
                 new Vacancy()
                 {
-                    Id = 1,
+                    //Id = 1,
                     Name = "Junior",
-                    CompanyId = 1,
+                    //CompanyId = 1,
                     Salary = 50000,
                     ShortDesc ="Junior position",
                     FullDesc ="Junior position in Sber",
@@ -44,9 +60,9 @@ namespace JobsDatingApp.Data
                 },
                 new Vacancy()
                 {
-                    Id = 2,
+                    //Id = 2,
                     Name = "Middle",
-                    CompanyId = 1,
+                    //CompanyId = 1,
                     Salary = 100000,
                     ShortDesc ="Middle position",
                     FullDesc ="Middle position in Sber",
@@ -54,9 +70,9 @@ namespace JobsDatingApp.Data
                 },
                 new Vacancy()
                 {
-                    Id = 3,
+                    //Id = 3,
                     Name = "Junior",
-                    CompanyId = 2,
+                    //CompanyId = 2,
                     Salary = 45000,
                     ShortDesc ="Junior position",
                     FullDesc ="Junior position in Vtb",
@@ -64,9 +80,9 @@ namespace JobsDatingApp.Data
                 },
                 new Vacancy()
                 {
-                    Id = 4,
+                    //Id = 4,
                     Name = "Middle",
-                    CompanyId = 2,
+                    //CompanyId = 2,
                     Salary = 110000,
                     ShortDesc ="Middle position",
                     FullDesc ="Middle position in Vtb",
@@ -78,7 +94,7 @@ namespace JobsDatingApp.Data
             {
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    //Id = Guid.NewGuid(),
                     Email = "test@mail.com",
                     Password = "123456",
                     Name = "Bob",

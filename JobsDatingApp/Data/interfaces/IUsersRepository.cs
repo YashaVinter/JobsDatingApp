@@ -4,8 +4,10 @@ namespace JobsDatingApp.Data.interfaces
 {
     public interface IUsersRepository
     {
-        IEnumerable<User> Users { get; }
+        IEnumerable<User> Users(bool hasAllEntities = false);
         User UserById(Guid id);
         //User UserByLogin(string login);
+        bool AddUser(User user);
+        bool UpdateUser(User user);
     }
 }

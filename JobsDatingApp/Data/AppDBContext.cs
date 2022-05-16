@@ -1,18 +1,18 @@
 ﻿using JobsDatingApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobsDatingApp.Persistance
+namespace JobsDatingApp.Data
 {
     public class AppDBContext : DbContext
     {
-        public DbSet<User> Users => Set<User>();
-        //public DbSet<Person> Persons { get; set; } = null!;
-        //public DbSet<Address> Addresses { get; set; } = null!;
-        public string dbPath = "JobsDatingAppDB.db";
-        public AppDBContext() => Database.EnsureCreated();
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) 
+        {    
+        }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Vacancy> Vacancies { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,3 +20,4 @@ namespace JobsDatingApp.Persistance
         }
     }
 }
+    

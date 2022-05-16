@@ -1,25 +1,32 @@
 ﻿using JobsDatingApp.Data.interfaces;
 using JobsDatingApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobsDatingApp.Data.Repository
 {
     public class VacanciesRepository : IVacanciesRepository
     {
-        public IEnumerable<Vacancy> AllVacancies => throw new NotImplementedException();
+        private readonly AppDBContext context;
+        public VacanciesRepository(AppDBContext context)
+        {
+            this.context = context;
+        }
+        public IEnumerable<Vacancy> AllVacancies => context.Vacancies.Include(v => v.Company);
 
         public IEnumerable<Vacancy> AllVacanciesByCompanyId(int id)
         {
-            throw new NotImplementedException();
+            return (from v in context.Vacancies
+                    where v.CompanyId == id
+                    select v)
+                   .ToArray();
         }
-
         public Vacancy VacancyById(int id)
         {
-            throw new NotImplementedException();
+            return context.Vacancies.First(v => v.Id == id);
         }
-
         public Vacancy VacancyByName(string name)
         {
-            throw new NotImplementedException();
+            return context.Vacancies.First(v => v.Name == name);
         }
     }
 }

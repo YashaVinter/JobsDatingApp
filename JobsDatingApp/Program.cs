@@ -3,10 +3,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using JobsDatingApp.ViewModels;
 using JobsDatingApp.Models;
 using JobsDatingApp.Data.interfaces;
 using JobsDatingApp.Data.mocks;
+using JobsDatingApp.Data;
+using JobsDatingApp.Data.Repository;
+
 
 public static class Program
 {
@@ -17,9 +21,15 @@ public static class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        //DB
         builder.Services.AddSingleton<MockDataBase>();
-        builder.Services.AddTransient<ICompaniesRepository, MockCompanies>();
-        builder.Services.AddTransient<IVacanciesRepository, MockVacancies>();
+        string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connection));
+        //Services
+        builder.Services.AddTransient<ICompaniesRepository, CompaniesRepository>(); // MockCompanies
+        builder.Services.AddTransient<IVacanciesRepository, VacanciesRepository>(); // MockVacancies
+        builder.Services.AddTransient<IUsersRepository, UsersRepository>(); // MockUsers
+
         builder.Services.AddScoped<VacancyViewModel>();
         builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -35,7 +45,10 @@ public static class Program
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
-
+        using (var scope = app.Services.CreateScope()) {
+            AppDBContext context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
+            DBObjects.Initial(context);
+        } 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 

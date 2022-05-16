@@ -1,0 +1,18 @@
+﻿@using JobsDatingApp.ViewModels
+@model TestIndexViewModel
+@{
+    ViewData["Title"] = "Index Page";
+}
+<div>
+    <h1>Test Controller, index page is work</h1>
+    @{
+        foreach (var el in @Model.Vacancies) 
+        {
+            <h2>@el.Name</h2>
+            <img src=@el.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
+            <p>@el.ShortDesc</p>
+            <p>Зарплата: @el.Salary</p>
+            <a class="btn btn-success" asp-area="" asp-controller="Test" asp-action="Response">Откликнутся</a>
+        }
+    }
+</div>

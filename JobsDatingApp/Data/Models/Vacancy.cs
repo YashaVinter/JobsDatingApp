@@ -3,7 +3,7 @@
     public class Vacancy
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
         public Company Company { get; set; }
         public int CompanyId { get; set; }
         public double Salary { get; set; }

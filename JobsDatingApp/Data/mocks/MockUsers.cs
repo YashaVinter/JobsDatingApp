@@ -10,10 +10,25 @@ namespace JobsDatingApp.Data.mocks
         {
             users = DBObjects.Users;
         }
-        public IEnumerable<User> Users => users;
+        IEnumerable<User> IUsersRepository.Users(bool hasAllEntities)
+        {
+            return users;
+        }
+
         public User UserById(Guid id)
         {
             return users.First(u => u.Id == id);
         }
+        public bool AddUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
