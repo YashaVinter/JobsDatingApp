@@ -1,4 +1,4 @@
-﻿namespace JobsDatingApp.Models
+﻿namespace JobsDatingApp.Data.Models
 {
     public class Worker
     {

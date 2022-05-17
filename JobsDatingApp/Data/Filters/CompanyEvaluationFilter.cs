@@ -1,4 +1,4 @@
-﻿using JobsDatingApp.Models;
+﻿using JobsDatingApp.Data.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JobsDatingApp.Filters

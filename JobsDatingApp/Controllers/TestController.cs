@@ -28,7 +28,7 @@ namespace JobsDatingApp.Controllers
             var usersList = users.ToList();
             var user = usersList.FirstOrDefault();
             user.LastViewedVacancy = v1;
-            user.LikedVacancies = new() { v1, v2 };
+            //user.LikedVacancies = new() { v1, v2 };
             usersRepository.UpdateUser(user);
             return View();
         }

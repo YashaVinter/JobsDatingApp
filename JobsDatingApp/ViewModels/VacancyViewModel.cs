@@ -1,5 +1,5 @@
 ﻿using System;
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 
 namespace JobsDatingApp.ViewModels
 {

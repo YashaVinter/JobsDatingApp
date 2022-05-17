@@ -1,7 +1,7 @@
-﻿using JobsDatingApp.Models;
+﻿using JobsDatingApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobsDatingApp.Models
+namespace JobsDatingApp.Data.Models
 {
     public class MockDataBase // : IDataBase
     {

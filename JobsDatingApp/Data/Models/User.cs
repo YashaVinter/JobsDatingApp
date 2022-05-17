@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 
-namespace JobsDatingApp.Models
+namespace JobsDatingApp.Data.Models
 {
     public class User
     {
@@ -27,6 +27,6 @@ namespace JobsDatingApp.Models
         public Vacancy? LastViewedVacancy { get; set; }
         [BindNever]
         [ScaffoldColumn(false)]
-        public List<Vacancy>? LikedVacancies { get; set; }
+        public HashSet<Vacancy>? LikedVacancies { get; set; }
     }
 }

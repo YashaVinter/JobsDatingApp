@@ -1,4 +1,4 @@
-﻿namespace JobsDatingApp.Models
+﻿namespace JobsDatingApp.Data.Models
 {
     public class Vacancy
     {
@@ -9,5 +9,6 @@
         public double Salary { get; set; }
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
+        public HashSet<User>? LikedUsers { get; set; }
     }
 }

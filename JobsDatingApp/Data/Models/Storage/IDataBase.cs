@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 
-namespace JobsDatingApp.Models
+namespace JobsDatingApp.Data.Models
 {
     /// <summary>
     /// TODO IDataBase<T>

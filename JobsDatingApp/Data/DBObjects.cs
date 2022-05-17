@@ -1,4 +1,4 @@
-﻿using JobsDatingApp.Models;
+﻿using JobsDatingApp.Data.Models;
 
 namespace JobsDatingApp.Data
 {

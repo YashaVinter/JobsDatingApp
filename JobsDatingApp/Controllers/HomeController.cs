@@ -1,4 +1,4 @@
-﻿using JobsDatingApp.Models;
+﻿using JobsDatingApp.Data.Models;
 using JobsDatingApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

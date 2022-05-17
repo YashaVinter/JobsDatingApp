@@ -24,7 +24,7 @@ namespace JobsDatingApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("JobsDatingApp.Models.Company", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace JobsDatingApp.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("JobsDatingApp.Models.User", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace JobsDatingApp.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("JobsDatingApp.Models.Vacancy", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.Vacancy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,36 +123,36 @@ namespace JobsDatingApp.Migrations
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("JobsDatingApp.Models.User", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.User", b =>
                 {
-                    b.HasOne("JobsDatingApp.Models.Vacancy", "LastViewedVacancy")
+                    b.HasOne("JobsDatingApp.Data.Models.Vacancy", "LastViewedVacancy")
                         .WithMany()
                         .HasForeignKey("LastViewedVacancyId");
 
                     b.Navigation("LastViewedVacancy");
                 });
 
-            modelBuilder.Entity("JobsDatingApp.Models.Vacancy", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.Vacancy", b =>
                 {
-                    b.HasOne("JobsDatingApp.Models.Company", "Company")
+                    b.HasOne("JobsDatingApp.Data.Models.Company", "Company")
                         .WithMany("Vacancies")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JobsDatingApp.Models.User", null)
+                    b.HasOne("JobsDatingApp.Data.Models.User", null)
                         .WithMany("LikedVacancies")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("JobsDatingApp.Models.Company", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.Company", b =>
                 {
                     b.Navigation("Vacancies");
                 });
 
-            modelBuilder.Entity("JobsDatingApp.Models.User", b =>
+            modelBuilder.Entity("JobsDatingApp.Data.Models.User", b =>
                 {
                     b.Navigation("LikedVacancies");
                 });

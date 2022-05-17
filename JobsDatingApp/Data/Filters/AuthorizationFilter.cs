@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 
 namespace JobsDatingApp.Filters
 {

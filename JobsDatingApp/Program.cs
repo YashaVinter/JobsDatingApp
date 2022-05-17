@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using JobsDatingApp.ViewModels;
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 using JobsDatingApp.Data.interfaces;
 using JobsDatingApp.Data.mocks;
 using JobsDatingApp.Data;

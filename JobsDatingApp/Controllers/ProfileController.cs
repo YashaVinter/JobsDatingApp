@@ -1,5 +1,5 @@
 ﻿using JobsDatingApp.Data.interfaces;
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;

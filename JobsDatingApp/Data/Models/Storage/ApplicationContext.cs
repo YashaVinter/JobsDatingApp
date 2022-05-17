@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 
-namespace JobsDatingApp.Models
+namespace JobsDatingApp.Data.Models
 {
     /// <summary>
     ///  TODO rename

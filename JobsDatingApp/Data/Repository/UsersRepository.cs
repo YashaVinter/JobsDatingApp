@@ -1,5 +1,5 @@
 ﻿using JobsDatingApp.Data.interfaces;
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobsDatingApp.Data.Repository

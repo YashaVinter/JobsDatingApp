@@ -1,5 +1,5 @@
 ﻿using JobsDatingApp.Data.interfaces;
-using JobsDatingApp.Models;
+using JobsDatingApp.Data.Models;
 using JobsDatingApp.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -79,7 +79,7 @@ namespace JobsDatingApp.Controllers
             user.LastViewedVacancy = vacancy;
             if (user.LikedVacancies is null)
             {
-                user.LikedVacancies = new() { vacancy };
+                user.LikedVacancies = new HashSet<Vacancy> { vacancy };
             }
             else
             {
