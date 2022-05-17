@@ -6,45 +6,59 @@ namespace JobsDatingApp.Data.Repository
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly AppDBContext context;
+        private readonly AppDBContext _context;
         public UsersRepository(AppDBContext context)
         {
-            this.context = context;
+            this._context = context;
         }
         IEnumerable<User> IUsersRepository.Users(bool hasAllEntities)
         {
-            var users = context.Users;
+            var users = _context.Users;
             if (hasAllEntities){
-                context.Users.Load();
+                _context.Users.Load();
             }
             return users;
         }
-        public User UserById(Guid id)
+        public User? UserById(Guid id)
         {
-            var user = context.Users.Where(u => u.Id == id);
-            user.Load();
-            return user.First();
+            return _context.Users
+                   .Where(u => u.Id == id)
+                   .Include(u => u.LastViewedVacancy)
+                   .Include(u => u.LikedVacancies)
+                   .FirstOrDefault();
+        }
+        public User? UserByEmail(string email)
+        {
+            return _context.Users.Where(u => u.Email == email).Include(u => u.LastViewedVacancy).FirstOrDefault();
         }
         public bool AddUser(User user)
         {
-            if (context.Users.Contains(user)) { 
+            if (_context.Users.Contains(user)) { 
                 return false;
             }
-            context.Users.Add(user);
-            context.SaveChanges();
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return true;
         }
 
         public bool UpdateUser(User user)
         {
-            if (!context.Users.Contains(user)){
+            if (!_context.Users.Contains(user)){
                 return false;
             }
-            context.Users.Update(user);
-            context.SaveChanges();
+            _context.Users.Update(user);
+            _context.SaveChanges();
             return true;
         }
-
-
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            if (!await _context.Users.ContainsAsync(user))
+            {
+                return false;
+            }
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

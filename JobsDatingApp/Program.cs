@@ -33,7 +33,7 @@ public static class Program
         builder.Services.AddScoped<VacancyViewModel>();
         builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options => options.LoginPath="/login");
+            .AddCookie(); // .AddCookie(options => options.LoginPath="/login");
         builder.Services.AddAuthorization();
 
         var app = builder.Build();

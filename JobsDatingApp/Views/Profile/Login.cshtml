@@ -1,0 +1,36 @@
+﻿@model JobsDatingApp.Models.User
+@{
+	var returnUrl = ViewData["returnUrl"] as string;
+	var error = TempData["Error"] as string;
+}
+<h1 class="text-center">Login page</h1>
+@if (!string.IsNullOrEmpty(error))
+{
+	<div class="alert alert-danger" role="alert">@error</div>
+}
+<div class="mx-md-auto">
+	<form asp-action="Login" method="post" class="col-lg-6 offset-lg-3">
+		<div class="form-group">
+			<label asp-for="Email"></label>
+			<div class=""> @*col-md-5*@
+				<input asp-for="Email" class="form-control" />
+				<span asp-validation-for="Email" class="text-danger" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Password"></label>
+			<div class="">
+				<input asp-for="Password" class="form-control" />
+				<span asp-validation-for="Password" class="text-danger" />
+			</div>
+		</div>
+		<div class ="pt-md-2">
+		<input class="btn btn-primary" type="submit" value="login" />
+		<a class="btn btn-primary" asp-area="" asp-controller="Profile" asp-action="Register">Register</a>
+		</div>
+	</form>
+</div>
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

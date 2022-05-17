@@ -5,23 +5,34 @@ namespace JobsDatingApp.Data.mocks
 {
     public class MockVacancies : IVacanciesRepository
     {
-        private List<Vacancy> vacancies;
+        private List<Vacancy> _vacancies;
         public MockVacancies()
         {
-            vacancies = DBObjects.Vacancies;
+            _vacancies = DBObjects.Vacancies;
         }
-        public IEnumerable<Vacancy> AllVacancies => vacancies;
+        public IEnumerable<Vacancy> AllVacancies => _vacancies;
         public IEnumerable<Vacancy> AllVacanciesByCompanyId(int id)
         {
-            return vacancies.Where(v => v.CompanyId == id);
+            return _vacancies.Where(v => v.CompanyId == id);
         }
+
+        public Vacancy FirstVacancy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vacancy NextVacancy(int currentVacancyId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Vacancy VacancyById(int id)
         {
-            return vacancies.First(v => v.Id == id);
+            return _vacancies.First(v => v.Id == id);
         }
         public Vacancy VacancyByName(string name) 
         {
-            return vacancies.First(v => v.Name == name);
+            return _vacancies.First(v => v.Name == name);
         }
     }
 }

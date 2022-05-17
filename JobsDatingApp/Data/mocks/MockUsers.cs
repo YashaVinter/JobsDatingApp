@@ -5,19 +5,19 @@ namespace JobsDatingApp.Data.mocks
 {
     public class MockUsers : IUsersRepository
     {
-        private readonly List<User> users;
+        private readonly List<User> _users;
         public MockUsers()
         {
-            users = DBObjects.Users;
+            _users = DBObjects.Users;
         }
         IEnumerable<User> IUsersRepository.Users(bool hasAllEntities)
         {
-            return users;
+            return _users;
         }
 
         public User UserById(Guid id)
         {
-            return users.First(u => u.Id == id);
+            return _users.First(u => u.Id == id);
         }
         public bool AddUser(User user)
         {
@@ -29,6 +29,14 @@ namespace JobsDatingApp.Data.mocks
             throw new NotImplementedException();
         }
 
+        public User UserByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
 
+        public Task<bool> UpdateUserAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

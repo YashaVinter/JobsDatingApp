@@ -5,19 +5,19 @@ namespace JobsDatingApp.Data.mocks
 {
     public class MockCompanies : ICompaniesRepository
     {
-        private List<Company> companies;
+        private List<Company> _companies;
         public MockCompanies()
         {
-            companies = DBObjects.Companies;
+            _companies = DBObjects.Companies;
         }
-        public IEnumerable<Company> Companies => companies;
+        public IEnumerable<Company> Companies => _companies;
         public Company CompanyById(int id)
         {
-            return companies.First(c => c.Id == id);
+            return _companies.First(c => c.Id == id);
         }
         public Company CompanyByName(string name)
         {
-            return companies.First(c => c.Name == name);
+            return _companies.First(c => c.Name == name);
         }
     }
 }

@@ -1,0 +1,19 @@
+﻿@model VacanciesIndexViewModel
+@{
+    ViewData["Title"] = "Vacanies Page";
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.Vacancy.Company.Name</h1> 
+    <img src=@Model.Vacancy.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
+    <p>@Model.Vacancy.Name</p>
+    <p>@Model.Vacancy.Salary</p>
+    <p>@Model.Vacancy.ShortDesc</p>
+    <div>
+        <a class="btn btn-info" asp-area="" asp-controller="Vacancies" asp-action="VacancyInfo">Vacancy Information</a>
+    </div>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+		<a class="btn btn-dark btn-lg" asp-area="" asp-controller="Vacancies" asp-action="Back">Back</a>
+        <a class="btn btn-danger btn-lg" asp-area="" asp-controller="Vacancies" asp-action="Dislike">Dislike</a>
+	    <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Vacancies" asp-action="Like">Like</a>
+    </div>
+</div>

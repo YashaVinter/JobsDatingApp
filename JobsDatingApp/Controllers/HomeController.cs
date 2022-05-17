@@ -10,7 +10,7 @@ using JobsDatingApp.Filters;
 
 namespace JobsDatingApp.Controllers
 {
-    [AuthorizationFilter]
+    //[AuthorizationFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -38,6 +38,10 @@ namespace JobsDatingApp.Controllers
             ////var v = this.HttpContext.User.Claims;
             ////var v = this.HttpContext.Request.Cookies.Append(new("", ""));
             ////var v1 = this.HttpContext.Session.Id;
+            return View();
+        }
+        public IActionResult About() 
+        {
             return View();
         }
 
