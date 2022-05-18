@@ -30,7 +30,7 @@ namespace JobsDatingApp.Data.Repository
             vacancy = _context.Vacancies.Where(v => v.Id == vacancy.Id).Include(v => v.Company).First();
             return vacancy;
         }
-        public Vacancy NextVacancy(int currentVacancyId) 
+        public Vacancy NextVacancy(int currentVacancyId)
         {
             return _context.Vacancies.Skip(currentVacancyId).Include(v => v.Company).First();
         }

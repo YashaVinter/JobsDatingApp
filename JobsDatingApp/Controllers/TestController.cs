@@ -22,15 +22,20 @@ namespace JobsDatingApp.Controllers
         //[Authorize] // UseAuthentication
         public IActionResult Index()
         {
+            // add last view vac to user
             var v1 = vacanciesRepository.VacancyById(1);
             var v2 = vacanciesRepository.VacancyById(2);
-            var users = usersRepository.Users();
+
+            var users = usersRepository.Users(true);
             var usersList = users.ToList();
             var user = usersList.FirstOrDefault();
-            user.LastViewedVacancy = v1;
-            //user.LikedVacancies = new() { v1, v2 };
+            user = usersRepository.UserById(user.Id);
+            user.LastViewedVacancy = new() { Vacancy = v1};
+            user.LikedVacancies = new() { v1, v2 };
             usersRepository.UpdateUser(user);
-            return View();
+
+            user = usersRepository.UserById(user.Id);
+            return Redirect("/");
         }
     }
 }

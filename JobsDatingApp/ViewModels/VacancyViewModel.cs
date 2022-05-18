@@ -50,15 +50,15 @@ namespace JobsDatingApp.ViewModels
                              .FirstOrDefault();
             this.Vacancy1 = userVacancy ?? dataBase.Vacancies.First();
         }
-        public Vacancy LastShownVacancy(System.Security.Claims.ClaimsPrincipal user) 
-        {
-            var userId = user.Identity!.Name;
-            var userVcancy = (from u in dataBase.Users
-                              where u.Id.ToString() == userId
-                              select u.LastViewedVacancy)
-                             .FirstOrDefault();
-            return userVcancy ?? dataBase.Vacancies.First();
-        }
+        //public Vacancy LastShownVacancy(System.Security.Claims.ClaimsPrincipal user) 
+        //{
+        //    var userId = user.Identity!.Name;
+        //    var userVcancy = (from u in dataBase.Users
+        //                      where u.Id.ToString() == userId
+        //                      select u.LastViewedVacancy)
+        //                     .FirstOrDefault();
+        //    return userVcancy ?? dataBase.Vacancies.First();
+        //}
         public void PreviousVacancy() 
         {
             throw new NotImplementedException();

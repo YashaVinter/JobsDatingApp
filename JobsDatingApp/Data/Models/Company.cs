@@ -7,7 +7,7 @@ namespace JobsDatingApp.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhotoPath { get; set; }
-        public List<Vacancy> Vacancies{ get; set; }
+        public List<Vacancy>? Vacancies{ get; set; }
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
     }

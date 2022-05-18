@@ -6,11 +6,11 @@ namespace JobsDatingApp.Data.Models
 {
     public class LikeInfo
     {
-        //[Key]
+        [Key]
         public Guid UserId { get; set; }
         //[ForeignKey(nameof(User))]
         public User? User { get; set; }
-        //[Key]
+        [Key]
         public int VacancyId{ get; set; }
         //[ForeignKey(nameof(Vacancy))]
         public Vacancy? Vacancy{ get; set; }

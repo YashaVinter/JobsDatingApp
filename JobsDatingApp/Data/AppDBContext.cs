@@ -17,6 +17,13 @@ namespace JobsDatingApp.Data
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<LastViewedVacancy>().HasKey(k => new { k.UserId, k.VacancyId });
+            //modelBuilder.Entity<LikeInfo>().HasKey(k => new {k.UserId,k.VacancyId });
+
+            modelBuilder.Entity<Company>().HasData(DBObjects.Companies);
+            modelBuilder.Entity<Vacancy>().HasData(DBObjects.Vacancies);
+            modelBuilder.Entity<User>().HasData(DBObjects.Users);
+
             //modelBuilder
             //    .Entity<User>()
             //    .HasMany(u => u.Vacancies)

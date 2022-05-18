@@ -30,7 +30,7 @@ namespace JobsDatingApp.Controllers
             var user = _usersRepository.UserByEmail(loginUser.Email);
             if ((user is not null) && (user.Password.Equals(loginUser.Password)))
             {
-                string LastViewedVacancyId = (user.LastViewedVacancyId is null) ? ("") : (user.LastViewedVacancyId.Value.ToString());
+                string LastViewedVacancyId = (user.LastViewedVacancy is null) ? ("") : (user.LastViewedVacancy.VacancyId.ToString());
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Email, user.Email),
@@ -42,7 +42,8 @@ namespace JobsDatingApp.Controllers
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect("/");
             }
-            else {
+            else
+            {
                 //ModelState.AddModelError("", "Dont correct email or password"); // dont work
                 TempData["Error"] = "Dont correct email or password";
                 return View();

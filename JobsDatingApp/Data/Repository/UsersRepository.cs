@@ -19,13 +19,15 @@ namespace JobsDatingApp.Data.Repository
             }
             return users;
         }
-        public User? UserById(Guid id)
+        public User UserById(Guid id)
         {
             return _context.Users
                    .Where(u => u.Id == id)
                    .Include(u => u.LastViewedVacancy)
+                       .ThenInclude(v => v!.Vacancy)
+                           .ThenInclude(v => v!.Company)//
                    .Include(u => u.LikedVacancies)
-                   .FirstOrDefault();
+                   .First();
         }
         public User? UserByEmail(string email)
         {
@@ -50,15 +52,15 @@ namespace JobsDatingApp.Data.Repository
             _context.SaveChanges();
             return true;
         }
-        public async Task<bool> UpdateUserAsync(User user)
-        {
-            if (!await _context.Users.ContainsAsync(user))
-            {
-                return false;
-            }
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-            return true;
-        }
+        //public async Task<bool> UpdateUserAsync(User user)
+        //{
+        //    if (!await _context.Users.ContainsAsync(user))
+        //    {
+        //        return false;
+        //    }
+        //    _context.Users.Update(user);
+        //    await _context.SaveChangesAsync();
+        //    return true;
+        //}
     }
 }

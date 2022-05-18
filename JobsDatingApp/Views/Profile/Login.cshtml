@@ -6,7 +6,9 @@
 <h1 class="text-center">Login page</h1>
 @if (!string.IsNullOrEmpty(error))
 {
-	<div class="alert alert-danger" role="alert">@error</div>
+	<div class="col-lg-6 offset-lg-3">
+		<div class="alert alert-danger" role="alert">@error</div>
+	</div>
 }
 <div class="mx-md-auto">
 	<form asp-action="Login" method="post" class="col-lg-6 offset-lg-3">
