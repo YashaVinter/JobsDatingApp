@@ -29,6 +29,6 @@ namespace JobsDatingApp.Data.Models
         [BindNever]
         [ScaffoldColumn(false)]
         public HashSet<Vacancy>? LikedVacancies { get; set; } // LikedVacancies
-        //public HashSet<LikeInfo>? Likes { get; set; } // Likes
+        public HashSet<LikeInfo>? Likes { get; set; } // Likes
     }
 }

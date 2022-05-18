@@ -14,8 +14,8 @@ namespace JobsDatingApp.Data.Models
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
         //[ForeignKey(nameof(User))]
-        //public HashSet<User>? LikedUsers { get; set; } // LikedUsers
+        public HashSet<User>? LikedUsers { get; set; } // LikedUsers
         //[ForeignKey(nameof(LikeInfo))]
-        //public HashSet<LikeInfo>? Likes { get; set; } // Likes
+        public HashSet<LikeInfo>? Likes { get; set; } // Likes
     }
 }
