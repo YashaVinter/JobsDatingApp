@@ -5,6 +5,7 @@ namespace JobsDatingApp.Data.Models
 {
     public class User
     {
+        [Key]
         [BindNever]
         public Guid Id { get; set; }
         [Display(Name = "Введите имя")]
@@ -24,9 +25,10 @@ namespace JobsDatingApp.Data.Models
         public int? LastViewedVacancyId { get; set; }
         [BindNever]
         [ScaffoldColumn(false)]
-        public Vacancy? LastViewedVacancy { get; set; }
+        public Vacancy? LastViewedVacancy { get; set; } // LastViewedVacancy
         [BindNever]
         [ScaffoldColumn(false)]
-        public HashSet<Vacancy>? LikedVacancies { get; set; }
+        public HashSet<Vacancy>? LikedVacancies { get; set; } // LikedVacancies
+        //public HashSet<LikeInfo>? Likes { get; set; } // Likes
     }
 }
