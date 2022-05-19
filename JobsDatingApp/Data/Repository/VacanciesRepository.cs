@@ -26,9 +26,13 @@ namespace JobsDatingApp.Data.Repository
         }
         public Vacancy FirstVacancy() 
         {
-            var vacancy = _context.Vacancies.First();
-            vacancy = _context.Vacancies.Where(v => v.Id == vacancy.Id).Include(v => v.Company).First();
-            return vacancy;
+            int vacancyId = _context.Vacancies.Min(v => v.Id);
+            return _context.Vacancies.Where(v => v.Id == vacancyId).Include(v => v.Company).First();
+        }
+        public Vacancy LastVacancy()
+        {
+            int vacancyId = _context.Vacancies.Max(v => v.Id);
+            return _context.Vacancies.Where(v => v.Id == vacancyId).Include(v => v.Company).First();
         }
         public Vacancy NextVacancy(int currentVacancyId)
         {
@@ -37,6 +41,14 @@ namespace JobsDatingApp.Data.Repository
                 return FirstVacancy();
 			}
             return _context.Vacancies.Skip(currentVacancyId).Include(v => v.Company).First();
+        }
+        public Vacancy PrevVacancy(int currentVacancyId)
+        {
+            if (currentVacancyId == 1)
+            {
+                return LastVacancy();
+            }
+            return _context.Vacancies.Skip(currentVacancyId-2).Include(v => v.Company).First();
         }
         public Vacancy VacancyByName(string name)
         {

@@ -21,12 +21,22 @@ namespace JobsDatingApp.Data.mocks
             throw new NotImplementedException();
         }
 
-        public Vacancy NextVacancy(int currentVacancyId)
+		public Vacancy LastVacancy()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Vacancy NextVacancy(int currentVacancyId)
         {
             throw new NotImplementedException();
         }
 
-        public Vacancy VacancyById(int id)
+		public Vacancy PrevVacancy(int currentVacancyId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Vacancy VacancyById(int id)
         {
             return _vacancies.First(v => v.Id == id);
         }

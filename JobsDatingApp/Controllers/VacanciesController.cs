@@ -49,7 +49,7 @@ namespace JobsDatingApp.Controllers
             };
             _usersRepository.UpdateUser(_currentUser.Value);
             await WriteUserCookieAsync(vacancy.Id.ToString());
-            return View(nameof(Index), new VacanciesIndexViewModel { Vacancy = vacancy });
+            return View( new VacanciesIndexViewModel { Vacancy = vacancy });
         }
         public async Task<IActionResult> Like()
         {
@@ -81,6 +81,55 @@ namespace JobsDatingApp.Controllers
             _usersRepository.UpdateUser(_currentUser.Value);
             await WriteUserCookieAsync(nextVacancy.Id.ToString());
             return View(nameof(Index), new VacanciesIndexViewModel { Vacancy = nextVacancy });
+        }
+        public async Task<IActionResult> Back()
+        {
+            Vacancy? vacancy = TryGetUserVacancyFromCookie();
+            vacancy ??= TryGetUserVacancyFromDb();
+            vacancy ??= _vacanciesRepository.FirstVacancy();
+
+            var prevVacancy = _vacanciesRepository.PrevVacancy(vacancy.Id);
+            _currentUser.Value!.LastViewedVacancy = new LastViewedVacancy
+            {
+                User = _currentUser.Value,
+                Vacancy = prevVacancy
+            };
+            _usersRepository.UpdateUser(_currentUser.Value);
+            await WriteUserCookieAsync(prevVacancy.Id.ToString());
+            return View(nameof(Index), new VacanciesIndexViewModel { Vacancy = prevVacancy });
+        }
+        public async Task<IActionResult> DisLike()
+        {
+            Vacancy? vacancy = TryGetUserVacancyFromCookie();
+            vacancy ??= TryGetUserVacancyFromDb();
+            vacancy ??= _vacanciesRepository.FirstVacancy();
+
+            var nextVacancy = _vacanciesRepository.NextVacancy(vacancy.Id);
+            _currentUser.Value!.LastViewedVacancy = new LastViewedVacancy
+            {
+                User = _currentUser.Value,
+                Vacancy = nextVacancy
+            };
+            _usersRepository.UpdateUser(_currentUser.Value);
+            await WriteUserCookieAsync(nextVacancy.Id.ToString());
+            return View(nameof(Index), new VacanciesIndexViewModel { Vacancy = nextVacancy });
+        }
+        public IActionResult VacancyInfo()
+        {
+            return View();
+        }
+        private Vacancy? TryGetUserVacancyFromCookie()
+        {
+            Vacancy? vacancy = null;
+            if (TryParseUserCookieVacancyId(out int vacancyId))
+			{
+                vacancy = _vacanciesRepository.VacancyById(vacancyId);
+			}
+            return vacancy;
+        }
+        private Vacancy? TryGetUserVacancyFromDb()
+        {
+            return _currentUser!.Value?.LastViewedVacancy?.Vacancy;
         }
         private bool TryParseUserCookieVacancyId(out int vacancyId)
         {

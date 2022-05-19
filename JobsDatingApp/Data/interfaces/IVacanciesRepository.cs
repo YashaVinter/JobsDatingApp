@@ -7,7 +7,9 @@ namespace JobsDatingApp.Data.interfaces
         IEnumerable<Vacancy> AllVacancies { get; }
         IEnumerable<Vacancy> AllVacanciesByCompanyId(int id);
         Vacancy FirstVacancy();
+        Vacancy LastVacancy();
         Vacancy NextVacancy(int currentVacancyId);
+        Vacancy PrevVacancy(int currentVacancyId);
         Vacancy VacancyById(int id);
         Vacancy VacancyByName(string name);
     }
