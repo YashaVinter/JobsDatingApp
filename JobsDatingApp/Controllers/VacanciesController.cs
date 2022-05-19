@@ -27,21 +27,13 @@ namespace JobsDatingApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            Vacancy? vacancy;
-            // find LastViewedVacancy in cookie
-            if (TryParseUserCookieVacancyId(out int vacancyId))
-            {
-                vacancy = _vacanciesRepository.VacancyById(vacancyId);
-                return View(new VacanciesIndexViewModel { Vacancy = vacancy });
-            }
-            // find LastViewedVacancy in DataBase
-            vacancy = _currentUser.Value?.LastViewedVacancy?.Vacancy;
+            Vacancy? vacancy = TryGetUserVacancyFromCookie();
             if (vacancy is not null)
-            {
                 return View(new VacanciesIndexViewModel { Vacancy = vacancy });
-            }
-            //LastViewedVacancy not found case
-            vacancy = _vacanciesRepository.FirstVacancy();
+            vacancy ??= TryGetUserVacancyFromDb();
+            if (vacancy is not null)
+                return View(new VacanciesIndexViewModel { Vacancy = vacancy });
+            vacancy ??= _vacanciesRepository.FirstVacancy();
             _currentUser.Value!.LastViewedVacancy = new LastViewedVacancy()
             {
                 User = _currentUser.Value,
@@ -49,28 +41,14 @@ namespace JobsDatingApp.Controllers
             };
             _usersRepository.UpdateUser(_currentUser.Value);
             await WriteUserCookieAsync(vacancy.Id.ToString());
-            return View( new VacanciesIndexViewModel { Vacancy = vacancy });
+            return View(new VacanciesIndexViewModel { Vacancy = vacancy });
         }
         public async Task<IActionResult> Like()
         {
-            Vacancy? vacancy = null;
-            // find LastViewedVacancy in cookie
-            if (TryParseUserCookieVacancyId(out int vacancyId))
-            {
-                vacancy = _vacanciesRepository.VacancyById(vacancyId);
-            }
-            // find LastViewedVacancy in DataBase
-            vacancy ??= _currentUser.Value?.LastViewedVacancy?.Vacancy;
-            // case find LastViewedVacancy in DataBase is null
+            Vacancy? vacancy = TryGetUserVacancyFromCookie();
+            vacancy ??= TryGetUserVacancyFromDb();
             vacancy ??= _vacanciesRepository.FirstVacancy();
-            // adding like vacancy
-            var likedVacancies = _currentUser.Value?.LikedVacancies;
-            if (likedVacancies is null || likedVacancies.Count == 0)
-            {
-                likedVacancies = new HashSet<Vacancy>();
-            }
-            likedVacancies.Add(vacancy);
-            _currentUser.Value!.LikedVacancies = likedVacancies;
+            AddLikeVacancyToCurrentUser(vacancy);
             //write next vacancy
             var nextVacancy = _vacanciesRepository.NextVacancy(vacancy.Id);
             _currentUser.Value!.LastViewedVacancy = new LastViewedVacancy
@@ -117,6 +95,16 @@ namespace JobsDatingApp.Controllers
         public IActionResult VacancyInfo()
         {
             return View();
+        }
+        private void AddLikeVacancyToCurrentUser(Vacancy vacancy) 
+        {
+            var likedVacancies = _currentUser.Value.LikedVacancies;
+            if (likedVacancies is null || likedVacancies.Count == 0)
+            {
+                likedVacancies = new HashSet<Vacancy>();
+			}
+            likedVacancies.Add(vacancy);
+            _currentUser.Value!.LikedVacancies = likedVacancies;
         }
         private Vacancy? TryGetUserVacancyFromCookie()
         {
