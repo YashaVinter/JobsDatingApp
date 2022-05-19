@@ -30,7 +30,6 @@ namespace JobsDatingApp.Controllers
                 _currentUser = value;
             }
         }
-
 		public VacanciesController(
             ILogger<VacanciesController> logger,
             IVacanciesRepository vacanciesRepository,
@@ -40,23 +39,6 @@ namespace JobsDatingApp.Controllers
             _vacanciesRepository = vacanciesRepository;
             _usersRepository = usersRepository;
         }
-        //public async Task<IActionResult> Index1() 
-        //{
-        //    Vacancy vacancy;
-        //    if (TryParseUserVacancyId(out int vacancyId))
-        //    {
-        //        vacancy = _vacanciesRepository.VacancyById(vacancyId);
-        //        AddLastViewedVacancyToUserDb(vacancy);
-        //    }
-        //    else
-        //    {
-        //        vacancy = _vacanciesRepository.FirstVacancy();
-        //        await WriteUserCookieAsync(HttpContext, vacancy.Id.ToString());
-        //    }
-        //    var model = new VacanciesIndexViewModel { Vacancy = vacancy };
-        //    return View(model);
-        //}
-
         public async Task<IActionResult> Index()
         {
             Vacancy? vacancy;
@@ -83,20 +65,6 @@ namespace JobsDatingApp.Controllers
             await WriteUserCookieAsync(vacancy.Id.ToString());
             return View(new VacanciesIndexViewModel { Vacancy = vacancy });
         }
-        //public async Task<IActionResult> Like1()
-        //{
-        //    var vacancyId = ParseUserVacancyId();
-        //    if (vacancyId is null)
-        //    {
-        //        return Redirect(nameof(Index));
-        //    }
-        //    Vacancy vacancy = _vacanciesRepository.VacancyById(vacancyId.Value);
-        //    vacancy = _vacanciesRepository.NextVacancy(vacancy.Id);
-        //    var model = new VacanciesIndexViewModel { Vacancy = vacancy };
-        //    AddLikeVacancyToUserDb(vacancy);
-        //    await WriteUserCookieAsync(HttpContext, vacancy.Id.ToString());
-        //    return View(nameof(Index), model);
-        //}
         public async Task<IActionResult> Like() 
         {
             Vacancy? vacancy = null;
@@ -127,25 +95,6 @@ namespace JobsDatingApp.Controllers
             await WriteUserCookieAsync(nextVacancy.Id.ToString());
             return View(nameof(Index),new VacanciesIndexViewModel { Vacancy = nextVacancy });
         }
-        //public async Task<IActionResult> Like()
-        //{
-        //    CurrentVacancy = _vacanciesRepository.NextVacancy(CurrentVacancy.Id);
-        //    AddLastViewedVacancyToUserDb(CurrentVacancy);
-        //    AddLikeVacancyToUserDb(CurrentVacancy);
-        //    await WriteUserCookieAsync1(CurrentVacancy.Id.ToString());
-        //    var model = new VacanciesIndexViewModel { Vacancy = CurrentVacancy };
-        //    return View(nameof(Index), model);
-        //}
-        //private int? ParseUserVacancyId()
-        //{
-        //    int vacancyId;
-        //    if (int.TryParse(User.FindFirst(CookiesLiterals.LastViewedVacancyId)?.Value, out vacancyId))
-        //    {
-        //        return vacancyId;
-        //    }
-        //    _logger.Log(LogLevel.Warning, @"User's cookie is not valid");
-        //    return null;
-        //}
         private bool TryParseUserCookieVacancyId(out int vacancyId)
         {
             bool parse = int.TryParse(User.FindFirstValue(CookiesLiterals.LastViewedVacancyId), out vacancyId);
@@ -153,65 +102,11 @@ namespace JobsDatingApp.Controllers
                 _logger.LogWarning("User's cookie is not valid");
             return parse;
         }
-   //     private void AddLikeVacancyToUserDb(Vacancy vacancy)
-   //     {
-   //         if (CurrentUser.LikedVacancies is null)
-   //         {
-   //             CurrentUser.LikedVacancies = new HashSet<Vacancy> { vacancy };
-   //         }
-   //         else
-   //         {
-   //             CurrentUser.LikedVacancies.Add(vacancy);
-   //         }
-   //         _usersRepository.UpdateUser(CurrentUser);
-   //     }
-   //     private void AddViewedVacancyToUserDb(Vacancy vacancy) 
-   //     {
-			////
-			//if (CurrentUser!.LastViewedVacancy!.Vacancy!.Equals(vacancy))
-			//{
-   //             return;
-			//}
-   //         //
-   //         if (CurrentUser.LastViewedVacancy is null)
-   //         {
-   //             CurrentUser.LastViewedVacancy = new() { User = CurrentUser, Vacancy = vacancy };
-   //         }
-   //         else
-   //         {
-   //             CurrentUser.LastViewedVacancy.Vacancy = vacancy;
-   //         }
-   //         _usersRepository.UpdateUser(CurrentUser);
-   //     }
         private User FindCurrentUser() 
         {
             var guid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return _usersRepository.UserById(guid)!;
         }
-        //private Vacancy? FindUserVacancy() 
-        //{
-        //    if (TryParseUserVacancyId(out int vacancyId))
-        //    {
-        //        return _vacanciesRepository.VacancyById(vacancyId);
-        //    }
-        //    return null;
-        //}
-        //private async Task WriteUserCookieAsync(HttpContext context, string vacancyId)
-        //{
-        //    if (context.User.Identity is ClaimsIdentity claimsIdentity)
-        //    {
-        //        //
-        //        if (claimsIdentity.FindFirst(CookiesLiterals.LastViewedVacancyId) is Claim claim)
-        //        {
-        //            claimsIdentity.RemoveClaim(claim);
-        //        }
-        //        //
-        //        // add check to exist claim
-        //        claimsIdentity.AddClaim(new Claim(CookiesLiterals.LastViewedVacancyId, vacancyId));
-        //        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-        //        await context.SignInAsync(claimsPrincipal);
-        //    }
-        //}
         private async Task WriteUserCookieAsync(string vacancyId)
         {
             var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
