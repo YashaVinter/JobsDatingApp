@@ -10,5 +10,6 @@ namespace JobsDatingApp.Data.Models
         public List<Vacancy>? Vacancies{ get; set; }
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
+        public double? Rating { get; set; }
     }
 }

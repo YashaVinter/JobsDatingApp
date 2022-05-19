@@ -94,6 +94,12 @@ namespace JobsDatingApp.Controllers
         }
         public IActionResult VacancyInfo()
         {
+            Vacancy? vacancy = TryGetUserVacancyFromCookie();
+            vacancy ??= TryGetUserVacancyFromDb();
+            return View(new VacanciesIndexViewModel { Vacancy = vacancy });
+        }
+        public IActionResult Respond() 
+        {
             return View();
         }
         private Vacancy? TryGetUserVacancyFromCookie()

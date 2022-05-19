@@ -5,11 +5,14 @@
 <div class="text-center">
 	<h1 class="display-4">@Model!.Vacancy!.Name</h1>
 	<img src=@Model.Vacancy.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
-    <p>@Model.Vacancy.Name</p>
-    <p>@Model.Vacancy.Salary</p>
-    <p>@Model.Vacancy.ShortDesc</p>
+    <p>Зарплата на данной позиции @Model.Vacancy.Salary руб.</p>
+    <div class="form-group">
+        <p>Описание: </p>
+		<p class="form-control">@Model.Vacancy.FullDesc</p>
+    </div>
+    <p>Еще какая то информация</p>
     <div>
-        <a class="btn btn-info" asp-area="" asp-controller="Vacancies" asp-action="VacancyInfo">Vacancy Information</a>
+        <a class="btn btn-info" asp-area="" asp-controller="Vacancies" asp-action="Respond">Откликнуться</a>
     </div>
     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 		<a class="btn btn-dark btn-lg" asp-area="" asp-controller="Vacancies" asp-action="Back">Back</a>

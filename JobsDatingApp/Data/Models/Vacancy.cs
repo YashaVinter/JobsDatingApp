@@ -14,7 +14,8 @@ namespace JobsDatingApp.Data.Models
         public double Salary { get; set; }
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
-        //[ForeignKey(nameof(User))]
+		public string? PhotoPath { get; set; }
+		public string? Address { get; set; }
         public HashSet<User>? LikedUsers { get; set; } // LikedUsers
     }
 }
