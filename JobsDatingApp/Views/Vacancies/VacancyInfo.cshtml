@@ -1,10 +1,10 @@
 ﻿@model VacanciesIndexViewModel
 @{
-    ViewData["Title"] = "Vacancy Page";
+    ViewData["Title"] = "VacanyInfo Page";
 }
 <div class="text-center">
-    <h1 class="display-4">@Model!.Vacancy!.Company!.Name</h1> 
-    <img src=@Model.Vacancy.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
+	<h1 class="display-4">@Model!.Vacancy!.Name</h1>
+	<img src=@Model.Vacancy.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
     <p>@Model.Vacancy.Name</p>
     <p>@Model.Vacancy.Salary</p>
     <p>@Model.Vacancy.ShortDesc</p>
