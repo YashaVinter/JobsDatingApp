@@ -32,6 +32,10 @@ namespace JobsDatingApp.Data.Repository
         }
         public Vacancy NextVacancy(int currentVacancyId)
         {
+			if (_context.Vacancies.Count() == currentVacancyId)
+			{
+                return FirstVacancy();
+			}
             return _context.Vacancies.Skip(currentVacancyId).Include(v => v.Company).First();
         }
         public Vacancy VacancyByName(string name)
