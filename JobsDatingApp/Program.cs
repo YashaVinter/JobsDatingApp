@@ -24,7 +24,7 @@ public static class Program
         //DB
         builder.Services.AddSingleton<MockDataBase>();
         string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-        builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connection));
+        builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connection)) ;
         //Services
         builder.Services.AddTransient<ICompaniesRepository, CompaniesRepository>(); // MockCompanies
         builder.Services.AddTransient<IVacanciesRepository, VacanciesRepository>(); // MockVacancies
