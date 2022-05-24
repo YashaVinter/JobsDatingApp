@@ -3,10 +3,10 @@
     ViewData["Title"] = "Vacancy Page";
 }
 <div class="text-center">
-    <h1 class="display-4">@Model!.Vacancy!.Company!.Name</h1> 
-    <img src=@Model.Vacancy.Company.PhotoPath width="400" height="auto" class="img" alt="sber image"/>
-    <p>@Model.Vacancy.Name</p>
-    <p>@Model.Vacancy.Salary</p>
+    @*<h1 class="display-4">@Model!.Vacancy!.Company!.Name</h1>*@
+    <img src=@Model.Vacancy.Company.PhotoPath width="auto" height="300" class="img" alt="vacancy image"/>
+    <h3 class="font-weight-normal">@Model.Vacancy.Name</h3>
+    <p class="font-weight-bold">@Model.Vacancy.Salary руб.</p>
     <p>@Model.Vacancy.ShortDesc</p>
     <div>
         <a class="btn btn-info" asp-area="" asp-controller="Vacancies" asp-action="VacancyInfo">Vacancy Information</a>
