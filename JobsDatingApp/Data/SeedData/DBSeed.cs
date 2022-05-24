@@ -1,4 +1,5 @@
 ﻿using JobsDatingApp.Data.Models;
+using System;
 
 namespace JobsDatingApp.Data.SeedData
 {
@@ -13,6 +14,8 @@ namespace JobsDatingApp.Data.SeedData
             Vacancies = iDBSeed.GetVacancies().ToList();
             Users = iDBSeed.GetUsers().ToList();
             BindCompaniesAndVacanies();
+            NullingEntities();
+            MakeDistinctCompanies();
         }
         private void BindCompaniesAndVacanies()
         {
@@ -20,6 +23,10 @@ namespace JobsDatingApp.Data.SeedData
             {
                 var bindingCompany = Companies.First(c => c.Id == bindingVacancy.CompanyId);
                 bindingVacancy.Company = bindingCompany;
+                if (bindingCompany.Vacancies is null)
+                {
+                    bindingCompany.Vacancies = new();
+                }
                 bindingCompany.Vacancies.Add(bindingVacancy);
             }
         }
@@ -38,6 +45,10 @@ namespace JobsDatingApp.Data.SeedData
                 u.LastViewedVacancy = null;
                 u.LikedVacancies = null;
             }
+        }
+        public void MakeDistinctCompanies()
+        {
+            Companies = Companies.DistinctBy(c => c.Id).ToList();
         }
     }
 }

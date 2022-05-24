@@ -12,8 +12,8 @@ namespace JobsDatingApp.Data.Models
         public int? CompanyId { get; set; }
         public Company? Company { get; set; }
         public double Salary { get; set; }
-        public string ShortDesc { get; set; }
-        public string FullDesc { get; set; }
+        public string? ShortDesc { get; set; }
+        public string? FullDesc { get; set; }
 		public string? PhotoPath { get; set; }
 		public string? Address { get; set; }
         public HashSet<User>? LikedUsers { get; set; } // LikedUsers

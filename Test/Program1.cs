@@ -6,7 +6,7 @@ namespace Test
     {
         public static async Task Main(string[] args)
         {
-            HHVacanciesRepository hHVacanciesRepository = new HHVacanciesRepository();
+            //HHVacanciesRepository hHVacanciesRepository = new HHVacanciesRepository();
         }
         private static async void Test() 
         {

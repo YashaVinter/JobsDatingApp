@@ -35,6 +35,7 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
             {
                 Id = (int)jCompany[nameof(Company.Id).ToLower()],
                 Name = (string)jCompany[nameof(Company.Name).ToLower()],
+                PhotoPath = ""
             };
             if (jCompany["logo_urls"]!.HasValues)
             {

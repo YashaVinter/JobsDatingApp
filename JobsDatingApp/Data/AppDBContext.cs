@@ -2,14 +2,19 @@
 using JobsDatingApp.Data.SeedData;
 using JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace JobsDatingApp.Data
 {
     public class AppDBContext : DbContext
     {
-        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) 
-        {    
+        private readonly string _connection;
+        //public AppDBContext(string connection = "")
+        //{
+        //    _connection = connection;
+        //    //Database.EnsureCreated();
+        //}
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
+        {
         }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
@@ -17,6 +22,7 @@ namespace JobsDatingApp.Data
         //public DbSet<LikeInfo> UserVacancies { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
+        //    optionsBuilder.UseSqlServer(_connection);
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

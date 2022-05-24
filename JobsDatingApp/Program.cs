@@ -47,8 +47,8 @@ public static class Program
         }
         using (var scope = app.Services.CreateScope()) {
             AppDBContext context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
-            DBObjects.Initial(context);
-        } 
+            //DBObjects.Initial(context);
+        }
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
