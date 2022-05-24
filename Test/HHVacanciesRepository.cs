@@ -38,8 +38,11 @@ namespace Test
             JObject JObject = JObject.Parse(vacanciesJson);
             JObject obj = (JObject) JObject["items"][0];
 
-            var hhSerializer = new HHJsonSerializer(vacanciesJson);
-            var companies = hhSerializer.GetCompanies();
+            var hhSerializer = new HHJsonConverter(vacanciesJson);
+            //var v = hhSerializer.Deserialize<Company>()
+            var companies = hhSerializer.GetCompanies().ToArray();
+            var vacancies = hhSerializer.GetVacancies().ToArray();
+            
         }
         public JObject JObjectFromFile(string filePath) 
         {
@@ -56,58 +59,6 @@ namespace Test
             {
             }
             throw new();
-        }
-        private Vacancy GetVacancy(JToken jVacancy) 
-        {
-            Company company = GetCompany(jVacancy["employer"]);
-            Vacancy vacancy = new Vacancy()
-            {
-                Id = (int)jVacancy["id"],
-                Name = (string)jVacancy["name"],
-                Salary = GetSalary(jVacancy["salary"]),
-                ShortDesc = (string)jVacancy["snippet"]["requirement"],
-                FullDesc = (string)jVacancy["snippet"]["requirement"],
-                PhotoPath = company.PhotoPath,
-                Company = company
-            };
-            return vacancy;
-        }
-        private double GetSalary(JToken jsalary) 
-        {
-            double dollarExchangeRate = 60d;
-            double euroExchangeRate = 65d;
-            double salary = (double)jsalary["from"];
-            string currency = (string)jsalary["currency"];
-            if (currency == "USD")
-            {
-                return salary * dollarExchangeRate;
-            }
-            else if (currency == "EUR")
-            {
-                return salary * euroExchangeRate;
-            }
-            else if (currency == "RUR")
-            {
-                return salary;
-            }
-            return 0;
-        }
-        private Company GetCompany(JToken? jToken)
-        {
-            return new Company
-            {
-                Id = (int) jToken["id"],
-                Name = (string) jToken["name"],
-                PhotoPath = (string)jToken["logo_urls"]["original"],
-            };
-        }
-        private Company GetCompany1(JToken? jToken)
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            //JsonConverter converter = new JsonConverter();
-            //serializer.Converters.Add();
-            Company company = jToken.ToObject<Company>();
-            return company;
         }
 
         public IEnumerable<Vacancy> AllVacancies => throw new NotImplementedException();

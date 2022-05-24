@@ -1,5 +1,8 @@
 ﻿using JobsDatingApp.Data.Models;
+using JobsDatingApp.Data.SeedData;
+using JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace JobsDatingApp.Data
 {
@@ -17,14 +20,16 @@ namespace JobsDatingApp.Data
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            string hhRequestUri = "https://api.hh.ru/vacancies?text=developer&area=113";
+            var seedData = new DBSeed(new HHDBSeed(hhRequestUri));
+            
             modelBuilder.Entity<LastViewedVacancy>().HasKey(k => new { k.UserId, k.VacancyId });
             //modelBuilder.Entity<LikeInfo>().HasKey(k => new {k.UserId,k.VacancyId });
-
-            modelBuilder.Entity<Company>().HasData(DBObjects.Companies);
-            modelBuilder.Entity<Vacancy>().HasData(DBObjects.Vacancies);
-            modelBuilder.Entity<User>().HasData(DBObjects.Users);
-
-            //modelBuilder
+            //modelBuilder.Entity<Company>().Property(p => p.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Company>().HasData(seedData.Companies);
+            //modelBuilder.Entity<Vacancy>().Property(p => p.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Vacancy>().HasData(seedData.Vacancies);
+            modelBuilder.Entity<User>().HasData(seedData.Users);            
             //    .Entity<User>()
             //    .HasMany(u => u.Vacancies)
             //    .WithMany(v => v.Users)
