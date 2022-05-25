@@ -5,19 +5,24 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using JobsDatingApp.ViewModels;
 
 namespace JobsDatingApp.Controllers
 {
     public class ProfileController : Controller
     {
         private readonly IUsersRepository _usersRepository;
+        private readonly IVacanciesRepository _vacanciesRepository;
+        private Lazy<User> _currentUser;
         public ProfileController(IUsersRepository usersRepository)
         {
             this._usersRepository = usersRepository;
+            _currentUser = new Lazy<User>(() => FindCurrentUser());
         }
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return View(new ProfileViewModel { User = _currentUser.Value });
         }
         [HttpGet] // [HttpGet("login")]
         public IActionResult Login()
@@ -83,6 +88,12 @@ namespace JobsDatingApp.Controllers
         public IActionResult CompleteRegister() 
         {
             return View();
+        }
+
+        private User FindCurrentUser()
+        {
+            var guid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return _usersRepository.UserById(guid)!;
         }
     }
 }

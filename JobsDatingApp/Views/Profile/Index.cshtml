@@ -1,0 +1,27 @@
+﻿@model ProfileViewModel
+<div>
+	<div class="text-center">
+		<h4 class="display-3">Привет @Model.User.Name</h4>
+		<h3 class="display-5">Понравившиеся вакансии</h3>
+	</div>
+
+	<div class="container">
+		@{
+			if (@Model.User.LikedVacancies is not null)
+			{
+				foreach (var vacancy in @Model.User.LikedVacancies)
+				{
+					<div class="row justify-content-md-center mb-3">
+						<div class="col col-md-4 card">
+							<img class="card-img-top mt-1" src=@vacancy!.Company?.PhotoPath alt="Card vacancy img">	@* style="height:100%;width:100px;" *@
+							<div class="card-body">
+								<h5 class="card-title">@vacancy.Name</h5>
+								<p class="card-text">@vacancy.Salary руб.</p>
+							</div>
+						</div>
+					</div>
+				}
+			}
+		}
+	</div>
+</div>

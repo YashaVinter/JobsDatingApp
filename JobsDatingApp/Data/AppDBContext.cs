@@ -25,17 +25,14 @@ namespace JobsDatingApp.Data
         //    optionsBuilder.UseSqlServer(_connection);
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            string hhRequestUri = "https://api.hh.ru/vacancies?text=developer&area=113";
-            var seedData = new DBSeed(new HHDBSeed(hhRequestUri));
-            
+        {   
             modelBuilder.Entity<LastViewedVacancy>().HasKey(k => new { k.UserId, k.VacancyId });
             //modelBuilder.Entity<LikeInfo>().HasKey(k => new {k.UserId,k.VacancyId });
             //modelBuilder.Entity<Company>().Property(p => p.Id).ValueGeneratedNever();
-            modelBuilder.Entity<Company>().HasData(seedData.Companies);
+            //modelBuilder.Entity<Company>().HasData(seedData.Companies);
             //modelBuilder.Entity<Vacancy>().Property(p => p.Id).ValueGeneratedNever();
-            modelBuilder.Entity<Vacancy>().HasData(seedData.Vacancies);
-            modelBuilder.Entity<User>().HasData(seedData.Users);            
+            //modelBuilder.Entity<Vacancy>().HasData(seedData.Vacancies);
+            //modelBuilder.Entity<User>().HasData(seedData.Users);            
             //    .Entity<User>()
             //    .HasMany(u => u.Vacancies)
             //    .WithMany(v => v.Users)

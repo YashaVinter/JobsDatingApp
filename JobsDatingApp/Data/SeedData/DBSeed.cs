@@ -17,6 +17,24 @@ namespace JobsDatingApp.Data.SeedData
             NullingEntities();
             MakeDistinctCompanies();
         }
+        public void Initial(AppDBContext context)
+        {
+            if (!context.Companies.Any())
+            {
+                context.Companies.AddRange(Companies);
+                context.SaveChanges();
+            }
+            if (!context.Vacancies.Any())
+            {
+                context.Vacancies.AddRange(Vacancies);
+                context.SaveChanges();
+            }
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(Users);
+                context.SaveChanges();
+            }
+        }
         private void BindCompaniesAndVacanies()
         {
             foreach (var bindingVacancy in Vacancies)
@@ -46,7 +64,7 @@ namespace JobsDatingApp.Data.SeedData
                 u.LikedVacancies = null;
             }
         }
-        public void MakeDistinctCompanies()
+        private void MakeDistinctCompanies()
         {
             Companies = Companies.DistinctBy(c => c.Id).ToList();
         }

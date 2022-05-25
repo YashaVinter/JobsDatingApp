@@ -50,12 +50,16 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
             {
                 Id = (int)jVacancy[nameof(Vacancy.Id).ToLower()],
                 Name = (string)jVacancy[nameof(Vacancy.Name).ToLower()],
-                Salary = ConvertSalary(jVacancy[nameof(Vacancy.Salary).ToLower()]),
+                Salary = double.NaN,
                 ShortDesc = (string)jVacancy["snippet"]["requirement"],
                 FullDesc = (string)jVacancy["snippet"]["requirement"],
                 Address = (string)jVacancy["area"]["name"],
                 CompanyId = (int)jVacancy["employer"]["id"]
             };
+            if (jVacancy[nameof(Vacancy.Salary).ToLower()] is JToken jSalary && jSalary.HasValues)
+            {
+                vacancy.Salary = ConvertSalary(jSalary);
+            }
             return vacancy;
         }
         private double ConvertSalary(JToken jSalary)

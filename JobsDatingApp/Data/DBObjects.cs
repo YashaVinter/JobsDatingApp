@@ -1,4 +1,6 @@
 ﻿using JobsDatingApp.Data.Models;
+using JobsDatingApp.Data.SeedData;
+using System;
 
 namespace JobsDatingApp.Data
 {
@@ -20,6 +22,24 @@ namespace JobsDatingApp.Data
             if (!context.Users.Any())
             {
                 context.Users.AddRange(Users);
+                context.SaveChanges();
+            }
+        }
+        public static void Initial1(AppDBContext context, DBSeed seed)
+        {
+            if (!context.Companies.Any())
+            {
+                context.Companies.AddRange(seed.Companies);
+                context.SaveChanges();
+            }
+            if (!context.Vacancies.Any())
+            {
+                context.Vacancies.AddRange(seed.Vacancies);
+                context.SaveChanges();
+            }
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(seed.Users);
                 context.SaveChanges();
             }
         }

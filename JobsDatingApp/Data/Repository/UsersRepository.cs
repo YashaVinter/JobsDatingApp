@@ -27,6 +27,7 @@ namespace JobsDatingApp.Data.Repository
                        .ThenInclude(v => v!.Vacancy)
                            .ThenInclude(v => v!.Company)//
                    .Include(u => u.LikedVacancies)
+                        !.ThenInclude(v => v!.Company)
                    .First();
         }
         public User? UserByEmail(string email)
