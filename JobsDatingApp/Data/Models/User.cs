@@ -21,13 +21,12 @@ namespace JobsDatingApp.Data.Models
         [StringLength(40, MinimumLength = 6,ErrorMessage = "Пароль должен быть длиннее 6 символов")]
         [Required(ErrorMessage ="Пароль должен быть длиннее 6 символов")]
         public string Password { get; set; }
-        //[BindNever]
-        //public int? LastViewedVacancyId { get; set; }
+
         [BindNever]
         [ScaffoldColumn(false)]
-        public LastViewedVacancy? LastViewedVacancy { get; set; } // LastViewedVacancy
+        public LastViewedVacancy? LastViewedVacancy { get; set; }
         [BindNever]
         [ScaffoldColumn(false)]
-        public HashSet<Vacancy>? LikedVacancies { get; set; } // LikedVacancies
+        public HashSet<Vacancy>? LikedVacancies { get; set; }
     }
 }

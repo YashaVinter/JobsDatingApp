@@ -2,7 +2,7 @@
 
 namespace Test
 {
-    public static class Program1
+    public static class Program
     {
         public static async Task Main(string[] args)
         {

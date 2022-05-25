@@ -12,8 +12,7 @@ namespace JobsDatingApp.Controllers
     public class ProfileController : Controller
     {
         private readonly IUsersRepository _usersRepository;
-        private readonly IVacanciesRepository _vacanciesRepository;
-        private Lazy<User> _currentUser;
+        private readonly Lazy<User> _currentUser;
         public ProfileController(IUsersRepository usersRepository)
         {
             this._usersRepository = usersRepository;
@@ -24,7 +23,7 @@ namespace JobsDatingApp.Controllers
         {
             return View(new ProfileViewModel { User = _currentUser.Value });
         }
-        [HttpGet] // [HttpGet("login")]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
@@ -33,26 +32,29 @@ namespace JobsDatingApp.Controllers
         public async Task<IActionResult> Login(User loginUser)
         {
             var user = _usersRepository.UserByEmail(loginUser.Email);
-            if ((user is not null) && (user.Password.Equals(loginUser.Password)))
+            // Validation of user
+            if (user is null)
             {
-                string LastViewedVacancyId = (user.LastViewedVacancy is null) ? ("") : (user.LastViewedVacancy.VacancyId.ToString());
-                var claims = new List<Claim>()
+                TempData["Error"] = "User with this Email not found";
+                return View();
+            }
+            if (!string.Equals(user.Password, loginUser.Password))
+            {
+                TempData["Error"] = "Incorrect password";
+                return View();
+            }
+            // sign in app with cookie
+            string LastViewedVacancyId = user.LastViewedVacancy?.VacancyId.ToString() ?? "";
+            var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.NameIdentifier ,user.Id.ToString()),
                     new Claim(CookiesLiterals.LastViewedVacancyId,LastViewedVacancyId)
                 };
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                await HttpContext.SignInAsync(claimsPrincipal);
-                return Redirect("/");
-            }
-            else
-            {
-                //ModelState.AddModelError("", "Dont correct email or password"); // dont work
-                TempData["Error"] = "Dont correct email or password";
-                return View();
-            }
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(claimsPrincipal);
+            return Redirect("/");
         }
         [Authorize]
         public async Task<IActionResult> Logout() 
@@ -68,16 +70,19 @@ namespace JobsDatingApp.Controllers
         [HttpPost]
         public IActionResult Register(User registerUser)
         {
+            // Validation of user
             if (_usersRepository.UserByEmail(registerUser.Email) is not null)
             {
                 TempData["Error"] = "User with this email already exist";
                 return View(registerUser);
             }
-            else if (_usersRepository.Users().FirstOrDefault(u => string.Equals(u.Login,registerUser.Login,StringComparison.OrdinalIgnoreCase)) is not null)
+            if (_usersRepository.Users().Any(u => string.Equals(u.Login, registerUser.Login, StringComparison.OrdinalIgnoreCase)))
             {
                 TempData["Error"] = "User with this Login already exist";
                 return View(registerUser);
-            } else if (!ModelState.IsValid) {
+            }
+            if (!ModelState.IsValid)
+            {
                 TempData["Error"] = "Dont correct user data";
                 return View(registerUser);
             }
@@ -93,7 +98,7 @@ namespace JobsDatingApp.Controllers
         private User FindCurrentUser()
         {
             var guid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return _usersRepository.UserById(guid)!;
+            return _usersRepository.UserById(guid);
         }
     }
 }

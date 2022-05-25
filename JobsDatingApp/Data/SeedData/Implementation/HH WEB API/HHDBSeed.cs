@@ -14,32 +14,32 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
             _json = GetRespondFromHH(hhRequestUri);
 
             _jsonSerializer = new JsonSerializer();
-            _jsonSerializer.Converters.Add(new HHConverter(new HashSet<Type>()
-            {
-                typeof(Company),
-                typeof(Vacancy)
-            }));
+            _jsonSerializer.Converters.Add(new HHConverter());
         }
         public IEnumerable<Company> GetCompanies()
         {
-            JEnumerable<JToken> jVacancies = JObject.Parse(_json)["items"].Children();
+            JEnumerable<JToken> jVacancies = JObject.Parse(_json)["items"]!.Children();
             List<Company> companies = new List<Company>();
-            foreach (var jVacanciy in jVacancies)
+            foreach (var jVacancy in jVacancies)
             {
-                companies.Add(jVacanciy["employer"]!.ToObject<Company>(_jsonSerializer)!);
+                companies.Add(jVacancy["employer"]!.ToObject<Company>(_jsonSerializer)!);
             }
             return companies;
         }
         public IEnumerable<Vacancy> GetVacancies()
         {
-            JEnumerable<JToken> jVacancies = JObject.Parse(_json)["items"].Children();
+            JEnumerable<JToken> jVacancies = JObject.Parse(_json)["items"]!.Children();
             List<Vacancy> vacancies = new List<Vacancy>();
-            foreach (var jVacanciy in jVacancies)
+            foreach (var jVacancy in jVacancies)
             {
-                vacancies.Add(jVacanciy!.ToObject<Vacancy>(_jsonSerializer)!);
+                vacancies.Add(jVacancy!.ToObject<Vacancy>(_jsonSerializer)!);
             }
             return vacancies;
         }
+        /// <summary>
+        /// plug
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> GetUsers()
         {
             return new User[]
@@ -57,8 +57,9 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
         private string GetRespondFromHH(string requestUri)
         {
             var client = new HttpClient();
+            //required requirement HH WEB API
             client.DefaultRequestHeaders.Add("User-Agent", "application/json");
-            var respondBodyTask = client.GetStringAsync(requestUri); // await client.GetAsync(requestUri);
+            var respondBodyTask = client.GetStringAsync(requestUri);
             respondBodyTask.Wait();
             return respondBodyTask.Result;
         }

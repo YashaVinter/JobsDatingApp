@@ -7,9 +7,13 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
     public class HHConverter : JsonConverter
     {
         private readonly ISet<Type> _types;
-        public HHConverter(ISet<Type> types)
+        public HHConverter()
         {
-            _types = types;
+            _types = new HashSet<Type>
+            {
+                typeof(Company),
+                typeof(Vacancy)
+            };
         }
         public override bool CanConvert(Type objectType)
         {
@@ -37,13 +41,13 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
             JToken jCompany = JToken.ReadFrom(reader);
             var company = new Company()
             {
-                Id = (int)jCompany[nameof(Company.Id).ToLower()],
-                Name = (string)jCompany[nameof(Company.Name).ToLower()],
+                Id = (int)jCompany[nameof(Company.Id).ToLower()]!,
+                Name = (string)jCompany[nameof(Company.Name).ToLower()]!,
                 PhotoPath = ""
             };
             if (jCompany["logo_urls"]!.HasValues)
             {
-                company.PhotoPath = (string?)jCompany["logo_urls"]["original"];
+                company.PhotoPath = (string)jCompany["logo_urls"]["original"]!;
             }
             return company;
         }

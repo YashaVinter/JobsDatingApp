@@ -11,7 +11,6 @@ namespace JobsDatingApp.Data.mocks
         {
             _vacancies = seed.Vacancies;
         }
-        public IEnumerable<Vacancy> AllVacancies => _vacancies;
         public IEnumerable<Vacancy> AllVacanciesByCompanyId(int id)
         {
             return _vacancies.Where(v => v.CompanyId == id);

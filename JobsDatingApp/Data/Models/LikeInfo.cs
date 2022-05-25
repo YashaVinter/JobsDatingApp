@@ -8,11 +8,9 @@ namespace JobsDatingApp.Data.Models
     {
         [Key]
         public Guid UserId { get; set; }
-        //[ForeignKey(nameof(User))]
         public User? User { get; set; }
         [Key]
         public int VacancyId{ get; set; }
-        //[ForeignKey(nameof(Vacancy))]
         public Vacancy? Vacancy{ get; set; }
         public DateTime? LikeTime{ get; set; }
     }

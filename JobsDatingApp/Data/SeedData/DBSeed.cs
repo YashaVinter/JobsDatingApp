@@ -47,6 +47,9 @@ namespace JobsDatingApp.Data.SeedData
                 bindingCompany.Vacancies.Add(bindingVacancy);
             }
         }
+        /// <summary>
+        /// Needed for database initialization
+        /// </summary>
         private void NullingEntities()
         {
             foreach (var c in Companies)

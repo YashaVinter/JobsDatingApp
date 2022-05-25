@@ -17,7 +17,7 @@ namespace JobsDatingApp.Data.Repository
         }
         public Company CompanyByName(string name)
         {
-            return _context.Companies.First(c => c.Name == name);
+            return _context.Companies.First(c => string.Equals(c.Name,name));
         }
     }
 }

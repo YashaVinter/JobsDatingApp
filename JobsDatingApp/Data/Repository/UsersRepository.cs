@@ -25,14 +25,17 @@ namespace JobsDatingApp.Data.Repository
                    .Where(u => u.Id == id)
                    .Include(u => u.LastViewedVacancy)
                        .ThenInclude(v => v!.Vacancy)
-                           .ThenInclude(v => v!.Company)//
+                           .ThenInclude(v => v!.Company)
                    .Include(u => u.LikedVacancies)
                         !.ThenInclude(v => v!.Company)
                    .First();
         }
         public User? UserByEmail(string email)
         {
-            return _context.Users.Where(u => u.Email == email).Include(u => u.LastViewedVacancy).FirstOrDefault();
+            return _context.Users
+                   .Where(u => string.Equals(u.Email,email))
+                   .Include(u => u.LastViewedVacancy)
+                   .FirstOrDefault();
         }
         public bool AddUser(User user)
         {

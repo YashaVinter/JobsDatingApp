@@ -15,6 +15,6 @@ namespace JobsDatingApp.Data.Models
         public string? FullDesc { get; set; }
 		public string? PhotoPath { get; set; }
 		public string? Address { get; set; }
-        public HashSet<User>? LikedUsers { get; set; } // LikedUsers
+        public HashSet<User>? LikedUsers { get; set; }
     }
 }
