@@ -4,6 +4,7 @@ using JobsDatingApp.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 
 namespace JobsDatingApp.Controllers
@@ -102,8 +103,15 @@ namespace JobsDatingApp.Controllers
         {
             // Validation of vacancy
             Vacancy? vacancy = TryGetUserVacancyFromCookie();
-            vacancy ??= TryGetUserVacancyFromDb();
+            vacancy = TryGetUserVacancyFromDb()!;
             return View(new VacanciesIndexViewModel { Vacancy = vacancy });
+        }
+        public IActionResult Respond()
+        {
+            // Validation of vacancy
+            Vacancy? vacancy = TryGetUserVacancyFromCookie();
+            vacancy = TryGetUserVacancyFromDb()!;
+            return Redirect(@"https://ekaterinburg.hh.ru/vacancy/" + vacancy.Id);
         }
         private Vacancy? TryGetUserVacancyFromCookie() //TODO change to try catch
         {
