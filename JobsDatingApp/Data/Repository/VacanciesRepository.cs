@@ -9,10 +9,8 @@ namespace JobsDatingApp.Data.Repository
         private readonly AppDBContext _context;
         public VacanciesRepository(AppDBContext context)
         {
-            this._context = context;
+            _context = context;
         }
-        public IEnumerable<Vacancy> AllVacancies => _context.Vacancies.Include(v => v.Company);
-
         public IEnumerable<Vacancy> AllVacanciesByCompanyId(int id)
         {
             return (from v in _context.Vacancies

@@ -28,6 +28,10 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
 
             return null;
         }
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
         private Company ConvertCompany(JsonReader reader)
         {
             JToken jCompany = JToken.ReadFrom(reader);
@@ -95,10 +99,6 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
                 return salary;
             }
             return salary;
-        }
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
         }
     }
 }

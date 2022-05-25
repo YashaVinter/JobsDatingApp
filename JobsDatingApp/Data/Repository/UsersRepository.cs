@@ -9,7 +9,7 @@ namespace JobsDatingApp.Data.Repository
         private readonly AppDBContext _context;
         public UsersRepository(AppDBContext context)
         {
-            this._context = context;
+            _context = context;
         }
         IEnumerable<User> IUsersRepository.Users(bool hasAllEntities)
         {
@@ -53,15 +53,5 @@ namespace JobsDatingApp.Data.Repository
             _context.SaveChanges();
             return true;
         }
-        //public async Task<bool> UpdateUserAsync(User user)
-        //{
-        //    if (!await _context.Users.ContainsAsync(user))
-        //    {
-        //        return false;
-        //    }
-        //    _context.Users.Update(user);
-        //    await _context.SaveChangesAsync();
-        //    return true;
-        //}
     }
 }

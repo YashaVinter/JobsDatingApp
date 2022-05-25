@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace JobsDatingApp.Data.Models
+﻿namespace JobsDatingApp.Data.Models
 {
     public class Company
     {

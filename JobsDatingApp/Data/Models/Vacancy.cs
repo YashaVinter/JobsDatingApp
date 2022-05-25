@@ -8,7 +8,6 @@ namespace JobsDatingApp.Data.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        //[ForeignKey(nameof(Company))]
         public int? CompanyId { get; set; }
         public Company? Company { get; set; }
         public double Salary { get; set; }

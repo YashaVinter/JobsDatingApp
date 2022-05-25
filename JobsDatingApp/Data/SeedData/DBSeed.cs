@@ -1,5 +1,4 @@
 ﻿using JobsDatingApp.Data.Models;
-using System;
 
 namespace JobsDatingApp.Data.SeedData
 {

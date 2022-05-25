@@ -9,6 +9,5 @@ namespace JobsDatingApp.Data.interfaces
         User? UserByEmail(string email);
         bool AddUser(User user);
         bool UpdateUser(User user);
-        //Task<bool> UpdateUserAsync(User user);
     }
 }

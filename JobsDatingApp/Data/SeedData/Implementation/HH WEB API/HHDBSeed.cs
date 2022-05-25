@@ -9,7 +9,6 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
     {
         private readonly string _json;
         private readonly JsonSerializer _jsonSerializer;
-
         public HHDBSeed(string hhRequestUri)
         {
             _json = GetRespondFromHH(hhRequestUri);
@@ -21,15 +20,6 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
                 typeof(Vacancy)
             }));
         }
-        private string GetRespondFromHH(string requestUri)
-        {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "application/json");
-            var respondBodyTask = client.GetStringAsync(requestUri); // await client.GetAsync(requestUri);
-            respondBodyTask.Wait();
-            return respondBodyTask.Result;
-        }
-
         public IEnumerable<Company> GetCompanies()
         {
             JEnumerable<JToken> jVacancies = JObject.Parse(_json)["items"].Children();
@@ -63,6 +53,14 @@ namespace JobsDatingApp.Data.SeedData.Implementation.HH_WEB_API
                     Password="123456"
                 }
             };
+        }
+        private string GetRespondFromHH(string requestUri)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "application/json");
+            var respondBodyTask = client.GetStringAsync(requestUri); // await client.GetAsync(requestUri);
+            respondBodyTask.Wait();
+            return respondBodyTask.Result;
         }
     }
 }
