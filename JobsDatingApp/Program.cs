@@ -16,28 +16,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//DB
+// Add database services
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connection));
-//Services
+// Adding services for working with database
 builder.Services.AddTransient<ICompaniesRepository, CompaniesRepository>(); // MockCompanies
 builder.Services.AddTransient<IVacanciesRepository, VacanciesRepository>(); // MockVacancies
-builder.Services.AddTransient<IUsersRepository, UsersRepository>(); // MockUsers
+builder.Services.AddTransient<IUsersRepository, UsersRepository>();         // MockUsers
 
-builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(); // .AddCookie(options => options.LoginPath="/login");
 builder.Services.AddAuthorization();
-
+// Building App
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+// Add seed data to Database
 using (var scope = app.Services.CreateScope())
 {
     AppDBContext context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
@@ -45,14 +38,18 @@ using (var scope = app.Services.CreateScope())
     var seedData = new DBSeed(new HHDBSeed(hhRequestUri));
     seedData.Initial(context);
 }
+// Adding middlewares to app
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}");
