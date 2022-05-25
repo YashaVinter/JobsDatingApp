@@ -1,14 +1,15 @@
 ﻿using JobsDatingApp.Data.interfaces;
 using JobsDatingApp.Data.Models;
+using JobsDatingApp.Data.SeedData;
 
 namespace JobsDatingApp.Data.mocks
 {
     public class MockVacancies : IVacanciesRepository
     {
         private List<Vacancy> _vacancies;
-        public MockVacancies()
+        public MockVacancies(DBSeed seed)
         {
-            _vacancies = DBObjects.Vacancies;
+            _vacancies = seed.Vacancies;
         }
         public IEnumerable<Vacancy> AllVacancies => _vacancies;
         public IEnumerable<Vacancy> AllVacanciesByCompanyId(int id)

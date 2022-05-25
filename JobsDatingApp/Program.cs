@@ -20,7 +20,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //DB
-builder.Services.AddSingleton<MockDataBase>();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connection));
 //Services
@@ -28,7 +27,6 @@ builder.Services.AddTransient<ICompaniesRepository, CompaniesRepository>(); // M
 builder.Services.AddTransient<IVacanciesRepository, VacanciesRepository>(); // MockVacancies
 builder.Services.AddTransient<IUsersRepository, UsersRepository>(); // MockUsers
 
-builder.Services.AddScoped<VacancyViewModel>();
 builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(); // .AddCookie(options => options.LoginPath="/login");

@@ -1,14 +1,15 @@
 ﻿using JobsDatingApp.Data.interfaces;
 using JobsDatingApp.Data.Models;
+using JobsDatingApp.Data.SeedData;
 
 namespace JobsDatingApp.Data.mocks
 {
     public class MockUsers : IUsersRepository
     {
         private readonly List<User> _users;
-        public MockUsers()
+        public MockUsers(DBSeed seed)
         {
-            _users = DBObjects.Users;
+            _users = seed.Users;
         }
         IEnumerable<User> IUsersRepository.Users(bool hasAllEntities)
         {
