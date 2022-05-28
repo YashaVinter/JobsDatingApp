@@ -30,9 +30,9 @@ namespace JobsDatingApp.Data.mocks
             throw new NotImplementedException();
         }
 
-        public User UserByEmail(string email)
+        public User? UserByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _users.FirstOrDefault(u => string.Equals(u.Email,email));
         }
 
         public Task<bool> UpdateUserAsync(User user)
