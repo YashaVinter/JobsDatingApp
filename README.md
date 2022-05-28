@@ -1,7 +1,5 @@
-JobsDatingApp
---
 # JobsDatingApp 
-**JobsDatingApp** - job search project
+**JobsDatingApp** - job search project based on the mechanics of dating apps (Like, Dislike)
 ### The following technologies are used in the project
  - WF - ASP.NET Core MVC
  - DB - MS SQL Server
