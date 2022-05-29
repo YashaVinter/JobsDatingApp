@@ -14,7 +14,7 @@
  ![vacancy](https://github.com/YashaVinter/JobsDatingApp/blob/master/demonstration/img/vacancy.png?raw=true)
 - Adding the user's favorite vacancies to the user's account
  ![likedVacanies](https://github.com/YashaVinter/JobsDatingApp/blob/master/demonstration/img/likedVacanies.png?raw=true)
-- View more detailed information and vacancies
+- View more detailed information about the vacancy
  ![vacancyInfo](https://github.com/YashaVinter/JobsDatingApp/blob/master/demonstration/img/vacancyInfo.png?raw=true)
 - Opportunity to respond to a vacancy
 - Transition to the original site of the vacancy (HH.ru)
