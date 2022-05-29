@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobsDatingApp", "JobsDatingApp\JobsDatingApp.csproj", "{3AC212C3-E8C9-49C2-B67C-1D0848BF9BBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{6F31B11F-1177-4D9C-8047-09DF5A5FF7D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "..\tests\Tests.csproj", "{AF58A7A4-603C-489C-ADD3-1352718376C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{3AC212C3-E8C9-49C2-B67C-1D0848BF9BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AC212C3-E8C9-49C2-B67C-1D0848BF9BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AC212C3-E8C9-49C2-B67C-1D0848BF9BBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F31B11F-1177-4D9C-8047-09DF5A5FF7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F31B11F-1177-4D9C-8047-09DF5A5FF7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F31B11F-1177-4D9C-8047-09DF5A5FF7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F31B11F-1177-4D9C-8047-09DF5A5FF7D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF58A7A4-603C-489C-ADD3-1352718376C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF58A7A4-603C-489C-ADD3-1352718376C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF58A7A4-603C-489C-ADD3-1352718376C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF58A7A4-603C-489C-ADD3-1352718376C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

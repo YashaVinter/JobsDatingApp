@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobsDatingApp\JobsDatingApp.csproj" />
+    <ProjectReference Include="..\src\JobsDatingApp\JobsDatingApp.csproj" />
   </ItemGroup>
 
 </Project>
