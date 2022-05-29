@@ -8,14 +8,14 @@ namespace JobsDatingApp.Data.Models
         [Key]
         [BindNever]
         public Guid Id { get; set; }
-        [Display(Name = "Введите имя")]
+        //[Display(Name = "Введите имя")]
         [StringLength(40, MinimumLength = 1)]
         [Required(ErrorMessage = "Данная строка не должна быть пустой")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Пользователь с таким Логином уже существует")]
+        [Required(ErrorMessage = "Данная строка не должна быть пустой")]
         public string Login { get; set; }
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректно введен Email")]
         [Required(ErrorMessage = "Некорректно введен Email")]
         public string Email { get; set; }
         [StringLength(40, MinimumLength = 6,ErrorMessage = "Пароль должен быть длиннее 6 символов")]
